@@ -1,0 +1,31 @@
+/* State button for button.js */
+.at-btn-wrap { position: relative; display: inline-flex; }
+.at-btn {
+  position: relative; display: inline-grid; place-items: center; height: 44px; padding: 0 22px; overflow: hidden;
+  border-radius: var(--r-full); font-weight: var(--w-bold); color: var(--c-accent-ink); background: var(--c-accent);
+  box-shadow: var(--sh-accent), var(--hl-inset); white-space: nowrap;
+  transition: width 0.42s var(--e-in-out), transform var(--d-pop) var(--e-pop), background-color var(--d-fade), box-shadow var(--d-base);
+}
+.at-btn > * { grid-area: 1 / 1; }
+/* hover: a light sweep crosses once */
+.at-btn::after {
+  content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.35) 50%, transparent 65%);
+  transform: translateX(-120%); pointer-events: none;
+}
+@media (hover: hover) { .at-btn:hover::after { transform: translateX(120%); transition: transform 0.7s var(--e-out); } }
+@media (hover: hover) { .at-btn:hover { background: var(--c-accent-hover); } }
+.at-btn:not([data-state="loading"], [data-state="success"]):active {
+  transform: scale(0.96);
+  transition: width 0.42s var(--e-in-out), transform var(--d-instant) var(--e-press), background-color var(--d-fade), box-shadow var(--d-base);
+}
+.at-btn__label { transition: opacity 0.18s var(--e-fade); }
+.at-btn[data-state="loading"] .at-btn__label, .at-btn[data-state="success"] .at-btn__label { opacity: 0; }
+.at-btn__ring, .at-btn__tick { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-linecap: round; opacity: 0; transition: opacity 0.2s var(--e-fade); }
+.at-btn__ring { stroke-width: 2.4; stroke-dasharray: 40 60; }
+.at-btn[data-state="loading"] .at-btn__ring { opacity: 1; animation: at-spin 0.8s linear infinite; transition-delay: 0.2s; }
+.at-btn__tick { stroke-width: 2.6; stroke-linejoin: round; stroke-dasharray: 20; stroke-dashoffset: 20; }
+.at-btn[data-state="success"] { background: var(--c-ok); color: #fff; }
+.at-btn[data-state="success"] .at-btn__tick { opacity: 1; stroke-dashoffset: 0; transition: opacity 0.1s, stroke-dashoffset 0.35s var(--e-out) 0.05s; }
+.at-btn[data-state="error"] { background: var(--c-bad); color: #fff; animation: at-shake 0.42s var(--e-out); }
+@keyframes at-spin { to { transform: rotate(360deg); } }
+@keyframes at-shake { 20% { translate: -6px 0; } 40% { translate: 5px 0; } 60% { translate: -3px 0; } 80% { translate: 2px 0; } }

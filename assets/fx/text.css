@@ -1,0 +1,10 @@
+/* Odometer digits for text.js */
+.at-odo { display: inline-flex; vertical-align: baseline; font-variant-numeric: tabular-nums; }
+.at-odo__vis { display: inline-flex; }
+.at-odo__col {
+  display: inline-block; height: 1.15em; overflow: hidden; line-height: 1.15;
+  -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
+}
+.at-odo__strip { display: block; white-space: pre; text-align: center; transition: transform var(--d-pop) var(--e-pop); }
+.at-odo__sep { line-height: 1.15; }

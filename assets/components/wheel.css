@@ -1,0 +1,20 @@
+/* Inertia wheel for wheel.js */
+.at-wheel {
+  --wheel-row: 40px;
+  position: relative; height: 200px; overflow: hidden; perspective: 600px; perspective-origin: 50% 50%;
+  border-radius: var(--r-card); touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none;
+  -webkit-mask-image: linear-gradient(transparent, #000 24%, #000 76%, transparent);
+  mask-image: linear-gradient(transparent, #000 24%, #000 76%, transparent);
+}
+.at-wheel.is-dragging { cursor: grabbing; }
+.at-wheel:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.at-wheel__lens {
+  position: absolute; left: 8px; right: 8px; top: 50%; height: var(--wheel-row); translate: 0 -50%; pointer-events: none;
+  border-radius: var(--r-control); background: var(--c-accent-soft); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-accent) 30%, transparent);
+}
+.at-wheel__item {
+  position: absolute; left: 0; right: 0; top: 50%; height: var(--wheel-row); display: grid; place-items: center;
+  font: var(--w-bold) var(--fs-xl)/1 var(--f-display); font-variant-numeric: tabular-nums; color: var(--c-text-3);
+  backface-visibility: hidden; will-change: transform, opacity; transition: color var(--d-fade) var(--e-fade);
+}
+.at-wheel__item.is-on { color: var(--c-accent-strong); }

@@ -1,0 +1,42 @@
+/* Capsule nav for nav.js. data-mode: capsule (horizontal, only the current label shows),
+   icons (vertical, labels become hover tooltips), rail (vertical with every label). */
+.at-nav {
+  --nav-bg: var(--c-text); --nav-pill: var(--c-bg); --nav-on: var(--c-text);
+  --nav-fg: color-mix(in srgb, var(--c-bg) 62%, transparent); --nav-hover: color-mix(in srgb, var(--c-bg) 92%, transparent);
+  position: relative; display: inline-flex; gap: 2px; padding: 5px; border-radius: var(--r-full);
+  background: var(--nav-bg); box-shadow: var(--sh-3);
+}
+.at-nav__glider { position: absolute; top: 0; left: 0; z-index: 0; border-radius: var(--r-full); background: var(--nav-pill); pointer-events: none; }
+.at-nav__glider:not(.is-ready) { opacity: 0; }
+.at-nav__item {
+  position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-width: 44px; height: 44px; padding: 0 12px; border-radius: var(--r-full);
+  color: var(--nav-fg); white-space: nowrap; transition: color var(--d-fade) var(--e-fade);
+}
+.at-nav__item svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--d-instant) var(--e-press); }
+.at-nav__item:active svg { transform: scale(0.86); }
+@media (hover: hover) { .at-nav__item:hover { color: var(--nav-hover); } }
+.at-nav__item[aria-current] { color: var(--nav-on); }
+.at-nav__item:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.at-nav__label { font-size: var(--fs-sm); font-weight: var(--w-bold); }
+.at-nav:not([data-mode="icons"], [data-mode="rail"]) .at-nav__item:not([aria-current]) .at-nav__label { display: none; }
+.at-nav:not([data-mode="icons"]) .at-nav__item[aria-current] .at-nav__label { animation: at-nav-label 0.34s var(--e-out) both; }
+@keyframes at-nav-label { from { opacity: 0; clip-path: inset(0 100% 0 0); } }
+
+.at-nav[data-mode="icons"], .at-nav[data-mode="rail"] {
+  flex-direction: column; padding: 6px; border-radius: calc(var(--r-control) + 8px);
+  /* a vertical rail lives inside the page, so it drops the floating dark capsule look */
+  --nav-bg: var(--c-sunken); --nav-pill: var(--c-surface); --nav-on: var(--c-text); --nav-fg: var(--c-text-2); --nav-hover: var(--c-text);
+  box-shadow: inset 0 0 0 var(--line-w) var(--c-line);
+}
+.at-nav[data-mode="icons"] .at-nav__glider, .at-nav[data-mode="rail"] .at-nav__glider { box-shadow: var(--sh-1), var(--hl-inset); }
+.at-nav[data-mode="rail"] .at-nav__item { justify-content: flex-start; width: 100%; padding: 0 14px; border-radius: calc(var(--r-control) + 2px); }
+.at-nav[data-mode="rail"] .at-nav__glider, .at-nav[data-mode="icons"] .at-nav__glider { border-radius: calc(var(--r-control) + 2px); }
+.at-nav[data-mode="icons"] .at-nav__item { width: 44px; padding: 0; border-radius: calc(var(--r-control) + 2px); }
+.at-nav[data-mode="icons"] .at-nav__label {
+  position: absolute; left: calc(100% + 14px); top: 50%; z-index: var(--z-overlay); padding: 5px 10px; border-radius: var(--r-sm);
+  color: var(--c-bg); background: var(--c-text); box-shadow: var(--sh-2); pointer-events: none;
+  opacity: 0; transform: translate(-4px, -50%); transition: opacity 0.15s, transform 0.25s var(--e-out);
+}
+.at-nav[data-mode="icons"] .at-nav__item:focus-visible .at-nav__label { opacity: 1; transform: translate(0, -50%); }
+@media (hover: hover) { .at-nav[data-mode="icons"] .at-nav__item:hover .at-nav__label { opacity: 1; transform: translate(0, -50%); } }

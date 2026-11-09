@@ -1,0 +1,111 @@
+/* Atelier tokens: every style decision lives here.
+   Rule: components read semantic tokens only (--c-* --r-* --s-* --e-* --d-*). A theme overrides tokens, never component CSS.
+   The colors are a neutral example. Regenerate them per product: node scripts/palette.mjs --hue <h> --chroma <c> ... */
+:root {
+  color-scheme: light;
+  /* ---------- color (palette.js output, light) ---------- */
+  --c-bg: #f4f7fc; --c-surface: #fcfdff; --c-sunken: #e9edf3;
+  --c-line: #d6dbe2; --c-line-strong: #bbc0c7;
+  --c-text: #15181e; --c-text-2: #4c5057; --c-text-3: #686c72;
+  --c-accent: #426bce; --c-accent-hover: #355bbd; --c-accent-strong: #29499b; --c-accent-ink: #ffffff;
+  --c-spice: #426bce;
+  --c-ok: #319751; --c-warn: #e19b1b; --c-bad: #d33b36; --c-info: #3080bc;
+  --c-data-1: #6b8fe2; --c-data-2: #d3754e; --c-data-3: #00aa95; --c-data-4: #b377c6; --c-data-5: #ab9017; --c-data-6: #1a9fd4;
+  --c-shadow-c: #202938;
+  /* derived mixes: soft fills and washes come from the accent, never from new hues */
+  --c-accent-soft: color-mix(in srgb, var(--c-accent) 14%, var(--c-surface));
+  --c-accent-wash: color-mix(in srgb, var(--c-accent) 7%, var(--c-bg));
+  --c-hover: color-mix(in srgb, var(--c-text) 5%, transparent);
+  --c-press: color-mix(in srgb, var(--c-text) 9%, transparent);
+
+  /* ---------- type ---------- */
+  --f-sans: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --f-display: var(--f-sans);
+  --f-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --fs-xs: 0.75rem; --fs-sm: 0.875rem; --fs-md: 1rem; --fs-lg: 1.125rem;
+  --fs-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --fs-2xl: clamp(1.6rem, 1.3rem + 1.4vw, 2.25rem);
+  --fs-3xl: clamp(2.2rem, 1.6rem + 3vw, 3.75rem);
+  --fs-hero: clamp(2.8rem, 1.4rem + 6.5vw, 7rem);
+  --lh-tight: 1.08; --lh-snug: 1.3; --lh-body: 1.7;
+  --w-regular: 400; --w-medium: 500; --w-bold: 650; --w-display: 700;
+  --tr-label: 0.14em;   /* mono uppercase labels */
+  --tr-display: -0.02em; /* large Latin display; CJK keeps 0 */
+
+  /* ---------- space (4pt grid) ---------- */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --section: clamp(72px, 10vw, 144px);
+  --content: 1200px;
+  --tap: 44px;           /* minimum touch target */
+
+  /* ---------- shape ---------- */
+  --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px; --r-full: 999px;
+  --r-control: var(--r-sm);  /* buttons, inputs, chips */
+  --r-card: var(--r-lg);
+  --r-panel: var(--r-xl);
+  --line-w: 1px;
+
+  /* ---------- depth: shadows are tinted by the neutral hue, never pure black ---------- */
+  --sh-1: 0 1px 2px color-mix(in srgb, var(--c-shadow-c) 10%, transparent);
+  --sh-2: 0 1px 2px color-mix(in srgb, var(--c-shadow-c) 8%, transparent), 0 8px 20px -8px color-mix(in srgb, var(--c-shadow-c) 22%, transparent);
+  --sh-3: 0 2px 6px color-mix(in srgb, var(--c-shadow-c) 8%, transparent), 0 24px 48px -18px color-mix(in srgb, var(--c-shadow-c) 32%, transparent);
+  --sh-accent: 0 12px 28px -12px color-mix(in srgb, var(--c-accent) 65%, transparent);
+  --hl-inset: inset 0 1px 0 rgb(255 255 255 / 0.6);  /* top edge highlight on raised surfaces */
+  --focus: 0 0 0 2px var(--c-bg), 0 0 0 4px var(--c-accent);
+
+  /* ---------- motion ---------- */
+  --d-instant: 90ms; --d-fast: 160ms; --d-base: 240ms; --d-slow: 420ms;
+  --e-out: cubic-bezier(0.22, 1, 0.36, 1);     /* enter, settle */
+  --e-in-out: cubic-bezier(0.65, 0, 0.35, 1);  /* move between two on-screen states */
+  --e-in: cubic-bezier(0.55, 0, 1, 0.45);      /* leave */
+  --e-press: cubic-bezier(0.2, 0, 0, 1);       /* press down, under 100ms */
+  /* springs from scripts/spring.mjs; each duration is the full settle time of its curve */
+  --e-calm: linear(0, 0.005 1.2%, 0.021 2.4%, 0.046 3.7%, 0.082 5.2%, 0.159 7.8%, 0.362 14%, 0.458 17.1%, 0.552 20.4%, 0.633 23.7%, 0.702 27%, 0.762 30.5%, 0.814 34.2%, 0.856 37.9%, 0.895 42.4%, 0.927 47.4%, 0.951 52.9%, 0.969 59.1%, 0.99 74.2%, 1);
+  --d-calm: 647ms;
+  --e-gentle: linear(0, 0.006 1.6%, 0.023 3.3%, 0.051 5.1%, 0.093 7.2%, 0.181 10.9%, 0.389 18.6%, 0.483 22.3%, 0.572 26.1%, 0.648 29.7%, 0.709 33.1%, 0.763 36.6%, 0.811 40.1%, 0.852 43.9%, 0.893 48.5%, 0.926 53.5%, 0.952 58.9%, 0.972 64.9%, 0.986 71.5%, 0.995 79.4%, 1);
+  --d-gentle: 548ms;
+  --e-snappy: linear(0, 0.006 1.2%, 0.024 2.5%, 0.053 3.8%, 0.097 5.4%, 0.189 8.2%, 0.411 14.2%, 0.516 17.2%, 0.614 20.3%, 0.696 23.3%, 0.768 26.4%, 0.827 29.5%, 0.877 32.8%, 0.917 36.2%, 0.949 40%, 0.973 44%, 0.99 48.6%, 1 54%, 1.006 65.3%, 1);
+  --d-snappy: 468ms;
+  --e-bouncy: linear(0, 0.008 1.2%, 0.031 2.4%, 0.067 3.7%, 0.122 5.1%, 0.243 7.7%, 0.517 12.9%, 0.635 15.3%, 0.746 17.8%, 0.837 20.2%, 0.913 22.6%, 0.972 24.9%, 1.019 27.4%, 1.052 30%, 1.077 33.6%, 1.083 37.7%, 1.071 42.5%, 1.017 56%, 0.999 64.2%, 0.993 74.3%, 1);
+  --d-bouncy: 862ms;
+  /* semantic motion: themes remap these three pairs, components only use them */
+  --e-move: var(--e-snappy); --d-move: var(--d-snappy);  /* position and size: gliders, pills, drawers */
+  --e-pop: var(--e-snappy);  --d-pop: var(--d-snappy);   /* scale-in: chips, checks, badges */
+  --e-fade: var(--e-out);    --d-fade: var(--d-fast);    /* opacity and color */
+  --spring-k: 385; --spring-c: 33;  /* stiffness and damping for JS drag release (mass 1) */
+
+  /* ---------- proximity scrollbar ---------- */
+  --sb-reach: 56px; --sb-w: 4px; --sb-w-near: 8px;
+  --sb-c: color-mix(in srgb, var(--c-text) 26%, transparent);
+  --sb-c-near: color-mix(in srgb, var(--c-text) 45%, transparent);
+
+  /* ---------- layers ---------- */
+  --z-raise: 1; --z-sticky: 20; --z-overlay: 40; --z-toast: 60; --z-cursor: 80;
+}
+
+/* Engines without linear() (Safari before 17.2) would drop every transition that uses a spring token.
+   Close cubic-bezier stand-ins keep them moving; themes still map --e-move/--e-pop onto these names. */
+@supports not (transition-timing-function: linear(0, 1)) {
+  :root {
+    --e-calm: cubic-bezier(0.25, 1, 0.5, 1);
+    --e-gentle: cubic-bezier(0.22, 1, 0.36, 1);
+    --e-snappy: cubic-bezier(0.2, 1.1, 0.4, 1);
+    --e-bouncy: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+[data-mode="dark"] {
+  color-scheme: dark;
+  --c-bg: #0d1013; --c-surface: #171a1d; --c-sunken: #07080b;
+  --c-line: #282a2f; --c-line-strong: #42454a;
+  --c-text: #eceff3; --c-text-2: #b7bbc0; --c-text-3: #92959a;
+  --c-accent: #537de2; --c-accent-hover: #5e8af0; --c-accent-strong: #b2caff; --c-accent-ink: #0b152c;
+  --c-spice: #537de2;
+  --c-ok: #62c37a; --c-warn: #fcb442; --c-bad: #f75e54; --c-info: #5eaceb;
+  --c-data-1: #82a8fd; --c-data-2: #ef8e66; --c-data-3: #1dc5ae; --c-data-4: #cc90e0; --c-data-5: #c5a93b; --c-data-6: #41b8ef;
+  --c-shadow-c: #000102;
+  --hl-inset: inset 0 1px 0 rgb(255 255 255 / 0.07);  /* dark surfaces rise by light, not by shadow */
+  --c-hover: color-mix(in srgb, var(--c-text) 7%, transparent);
+  --c-press: color-mix(in srgb, var(--c-text) 12%, transparent);
+}

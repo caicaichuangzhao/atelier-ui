@@ -1,0 +1,113 @@
+/* Showcase page: frame, top bar, hero, section heads, footer, dock. Specimen cards are in cards.css. */
+:root { --card-shadow: var(--sh-2); --card-shadow-hover: var(--sh-3); }
+body { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); overflow-x: clip; }
+.sc-wrap { width: min(100% - var(--gutter) * 2, var(--content)); margin-inline: auto; }
+.sc-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.sc-skip {
+  position: fixed; left: 16px; top: 12px; z-index: calc(var(--z-toast) + 1); display: flex; align-items: center; min-height: 44px; padding: 0 18px;
+  border-radius: var(--r-full); font-size: var(--fs-sm); font-weight: var(--w-bold); color: var(--c-bg); background: var(--c-text);
+  opacity: 0; transform: translateY(-160%); transition: transform var(--d-pop) var(--e-pop), opacity var(--d-fade) var(--e-fade);
+}
+.sc-skip:focus { opacity: 1; transform: none; outline: 2px solid var(--c-accent); outline-offset: 2px; }
+
+/* ---------- top bar ---------- */
+.sc-top {
+  position: sticky; top: 0; z-index: var(--z-sticky);
+  background: color-mix(in srgb, var(--c-bg) 80%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
+}
+.sc-top__in { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); height: 64px; }
+.sc-brand { display: flex; align-items: center; gap: 10px; min-width: 44px; min-height: 44px; font: var(--w-bold) var(--fs-xs)/1 var(--f-mono); letter-spacing: 0.24em; }
+.sc-brand__mark {
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: var(--r-control);
+  color: var(--c-accent-ink); background: var(--c-accent); font: 900 17px/1 var(--f-display); letter-spacing: 0;
+}
+.sc-themes > button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 14px; }
+.sc-themes b { font: 700 15px/1 var(--f-display); }
+.sc-mode {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-full); color: var(--c-text-2);
+  transition: background-color var(--d-fade) var(--e-fade), color var(--d-fade) var(--e-fade);
+}
+@media (hover: hover) { .sc-mode:hover { background: var(--c-hover); color: var(--c-text); } }
+.sc-mode:active svg { transform: scale(0.86); }
+.sc-mode svg { width: 22px; height: 22px; overflow: visible; transition: transform var(--d-instant) var(--e-press); }
+.sc-mode svg * { transform-box: fill-box; transform-origin: center; transition: transform var(--d-move) var(--e-move), opacity var(--d-fade) var(--e-fade); }
+[data-mode="dark"] .sc-mode__orb { transform: scale(1.55); }
+.sc-mode__cut { transform: translate(9px, -9px); }
+[data-mode="dark"] .sc-mode__cut { transform: translate(0, 0); }
+[data-mode="dark"] .sc-mode__rays { transform: rotate(-60deg) scale(0.4); opacity: 0; }
+/* scroll progress drawn as ruler ticks along the bottom edge of the bar */
+.sc-ruler { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; pointer-events: none; }
+.sc-ruler::before, .sc-ruler::after {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 12px) bottom / 100% 3px no-repeat,
+              repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 60px) bottom / 100% 7px no-repeat,
+              linear-gradient(currentColor, currentColor) bottom / 100% 1px no-repeat;
+}
+.sc-ruler::before { color: color-mix(in srgb, var(--c-text) 16%, transparent); }
+.sc-ruler::after { color: var(--c-accent-strong); clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0); }
+
+/* ---------- hero ---------- */
+.sc-hero { padding-block: clamp(24px, 4vw, 48px) 0; scroll-margin-top: 72px; }
+.sc-hero__bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2) var(--s-5); margin-bottom: var(--s-4); }
+.sc-stage {
+  position: relative; height: clamp(240px, 36vw, 420px); overflow: hidden; touch-action: pan-y;
+  border-radius: var(--r-panel); background: var(--c-surface); box-shadow: var(--card-shadow);
+}
+.sc-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sc-stage::before { /* viewfinder corners */
+  content: ""; position: absolute; inset: 14px; pointer-events: none; opacity: 0.55;
+  --c: var(--c-text-3);
+  background: linear-gradient(var(--c), var(--c)) 0 0 / 14px 1px, linear-gradient(var(--c), var(--c)) 0 0 / 1px 14px,
+              linear-gradient(var(--c), var(--c)) 100% 0 / 14px 1px, linear-gradient(var(--c), var(--c)) 100% 0 / 1px 14px,
+              linear-gradient(var(--c), var(--c)) 0 100% / 14px 1px, linear-gradient(var(--c), var(--c)) 0 100% / 1px 14px,
+              linear-gradient(var(--c), var(--c)) 100% 100% / 14px 1px, linear-gradient(var(--c), var(--c)) 100% 100% / 1px 14px;
+  background-repeat: no-repeat;
+}
+.sc-stage__hint { position: absolute; left: 26px; bottom: 24px; } /* sits inside the viewfinder corner, clear of both arms */
+.at-js .sc-h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.sc-h1 { font-size: var(--fs-hero); padding: var(--s-6); }
+.sc-hero__foot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: var(--s-5) var(--s-7); margin-top: var(--s-6); align-items: start; }
+.sc-lead { font-size: var(--fs-lg); line-height: 1.75; color: var(--c-text-2); max-width: 34em; }
+.sc-lead b { color: var(--c-text); font-weight: var(--w-bold); }
+.sc-say { display: flex; gap: var(--s-2); margin-top: var(--s-5); max-width: 460px; }
+.sc-say input {
+  flex: 1; min-width: 0; height: 44px; padding: 0 16px; border: 0; border-radius: var(--r-full);
+  background: var(--c-sunken); box-shadow: inset 0 0 0 var(--line-w) var(--c-line); color: var(--c-text);
+  transition: box-shadow var(--d-fade) var(--e-fade);
+}
+.sc-say input:focus { outline: none; box-shadow: inset 0 0 0 1.5px var(--c-accent), 0 0 0 4px var(--c-accent-soft); }
+.sc-ghost {
+  display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 18px; border-radius: var(--r-full);
+  font-size: var(--fs-sm); font-weight: var(--w-bold); color: var(--c-text); background: var(--c-surface);
+  box-shadow: inset 0 0 0 var(--line-w) var(--c-line-strong), var(--hl-inset);
+  transition: background-color var(--d-fade), transform var(--d-instant) var(--e-press);
+}
+@media (hover: hover) { .sc-ghost:hover { background: var(--c-sunken); } }
+.sc-ghost:active { transform: scale(0.96); }
+
+/* ---------- section heads ---------- */
+.sc-sec { padding-top: var(--section); scroll-margin-top: 72px; }
+.sc-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-2) var(--s-6); align-items: end; margin-bottom: var(--s-7); }
+.sc-head__num { grid-row: span 3; font: var(--w-display) clamp(72px, 10vw, 140px)/0.78 var(--f-display); color: var(--num-c, var(--c-accent)); letter-spacing: -0.04em; }
+.sc-head h2 { font-size: var(--fs-3xl); }
+.sc-head p { max-width: 40em; color: var(--c-text-2); }
+@media (max-width: 640px) {
+  .sc-head { grid-template-columns: 1fr; }
+  .sc-head__num { grid-row: auto; font-size: 64px; }
+}
+
+/* ---------- footer and dock ---------- */
+.sc-foot { padding-block: var(--section) var(--s-8); }
+.sc-foot__big { font: var(--w-display) clamp(40px, 7.5vw, 104px)/1 var(--f-display); letter-spacing: var(--tr-display); text-wrap: balance; }
+.sc-foot__meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-4); margin-top: var(--s-7); padding-top: var(--s-5); border-top: var(--line-w) solid var(--c-line); }
+.sc-dock { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: var(--z-overlay); translate: -50% 0; transition: translate var(--d-move) var(--e-move), opacity var(--d-fade) var(--e-fade); }
+/* the hero has its own controls; the dock arrives once the page scrolls, and Tab can still reach it */
+.sc-dock.is-away:not(:focus-within) { translate: -50% calc(100% + 40px); opacity: 0; pointer-events: none; }
+
+@media (max-width: 760px) {
+  .sc-hero__foot { grid-template-columns: 1fr; }
+  .sc-themes > button { padding: 0 10px; }
+  .sc-themes > button span { display: none; }
+  .sc-brand__word { display: none; }
+}

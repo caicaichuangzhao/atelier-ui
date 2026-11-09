@@ -1,0 +1,36 @@
+/* Proximity scrollbar. Pair with scrollbar.js.
+   Native bars are hidden only after the script marks the host (.at-sb-on), so a page without JS still scrolls with a visible bar.
+   Markup: <div class="at-scroll"><div class="at-scroll__view"><div>content</div></div></div> */
+.at-scroll { --sb-near: 0; position: relative; min-height: 0; }
+.at-scroll__view { height: 100%; overflow: auto; overscroll-behavior: contain; }
+.at-scroll.at-sb-on > .at-scroll__view, html.at-sb-on { scrollbar-width: none; }
+.at-scroll.at-sb-on > .at-scroll__view::-webkit-scrollbar, html.at-sb-on::-webkit-scrollbar { display: none; }
+
+.at-scrollbar {
+  --_n: var(--sb-near, 0);
+  position: absolute; top: 6px; right: 2px; bottom: 6px; width: 12px; z-index: var(--z-raise);
+  pointer-events: none;
+}
+.at-scrollbar--page { position: fixed; top: 8px; right: 3px; bottom: 8px; z-index: var(--z-overlay); }
+.at-scroll.is-sb-near > .at-scrollbar, html.is-sb-near .at-scrollbar--page,
+.at-scroll.is-sb-drag > .at-scrollbar, html.is-sb-drag .at-scrollbar--page { pointer-events: auto; }
+.at-scroll.is-sb-scrolling > .at-scrollbar, html.is-sb-scrolling .at-scrollbar--page { --_s: 1; }
+
+/* rail: fades in with proximity so the user sees where the thumb can travel */
+.at-scrollbar::before {
+  content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: var(--sb-w-near);
+  border-radius: var(--r-full); background: color-mix(in srgb, var(--c-text) 6%, transparent);
+  opacity: var(--_n); transition: opacity 0.2s var(--e-out);
+}
+/* thumb: anchored to the edge, grows toward the content as the pointer approaches */
+.at-scrollbar__thumb {
+  position: absolute; top: 0; right: 0;
+  width: calc(var(--sb-w) + (var(--sb-w-near) - var(--sb-w)) * var(--_n));
+  border-radius: var(--r-full); background: var(--sb-c);
+  opacity: max(var(--_n), var(--_s, 0));
+  transition: opacity 0.3s var(--e-out), width 0.12s linear, background-color 0.2s;
+  will-change: transform;
+}
+@media (hover: hover) { .at-scrollbar__thumb:hover { background: var(--sb-c-near); } }
+.is-sb-drag .at-scrollbar__thumb { background: var(--c-accent); opacity: 1; }
+.is-sb-drag { user-select: none; }

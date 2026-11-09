@@ -1,0 +1,76 @@
+/* Info pill for info-pill.js. --tone overrides the accent for one pill; --ipill-size overrides the circle size. */
+.at-ipill { --_c: var(--tone, var(--c-accent)); --_s: var(--ipill-size, 32px); position: relative; display: inline-block; flex: none; width: var(--_s); height: var(--_s); vertical-align: middle; }
+.at-ipill:hover, .at-ipill:focus-within, .at-ipill.is-open { z-index: var(--z-overlay); }
+
+/* the element itself: a circle (32px, 44px on touch) that grows right into a pill and covers what sits beside it */
+.at-ipill__shell {
+  position: absolute; top: 0; left: 0; z-index: 1; display: flex; align-items: center; width: var(--_s); height: var(--_s); overflow: hidden;
+  border-radius: calc(var(--_s) / 2); background: var(--c-surface); white-space: nowrap;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--_c) 55%, var(--c-surface)), var(--sh-1);
+  transition: width 0.4s var(--e-out), background-color var(--d-fade), box-shadow var(--d-fade);
+}
+@media (hover: hover) { .at-ipill:hover .at-ipill__shell { background: color-mix(in srgb, var(--_c) 8%, var(--c-surface)); } }
+.at-ipill:has(.at-ipill__btn:focus-visible) .at-ipill__shell { outline: 2px solid var(--_c); outline-offset: 2px; }
+.at-ipill.is-open .at-ipill__shell {
+  background: color-mix(in srgb, var(--_c) 6%, var(--c-surface));
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--_c) 50%, var(--c-surface)), 0 10px 24px -14px var(--_c);
+  transition-duration: 0.5s;
+}
+.at-ipill__btn {
+  display: grid; place-items: center; flex: none; width: var(--_s); height: var(--_s); border-radius: 50%;
+  font: 600 15px/1 var(--f-display); font-style: italic; color: var(--_c);
+  transition: transform 0.5s var(--e-pop), color var(--d-fade), background-color var(--d-fade);
+}
+.at-ipill__btn:focus-visible { outline: none; }
+.at-ipill__btn:active { transform: scale(0.9); }
+/* open: the i at the left end turns once into a filled circle and sends out a halo */
+.at-ipill.is-open .at-ipill__btn { color: var(--c-accent-ink); background: var(--_c); transform: rotate(360deg); }
+.at-ipill.is-open::after {
+  content: ""; position: absolute; top: 0; left: 0; z-index: -1; width: var(--_s); height: var(--_s); border-radius: 50%;
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--_c) 45%, transparent); animation: at-halo 0.7s var(--e-out) forwards;
+}
+@keyframes at-halo { to { box-shadow: 0 0 0 12px transparent; } }
+
+/* content sits right of the button and is uncovered left to right as the pill widens */
+.at-ipill__body {
+  display: flex; flex: none; align-items: center; gap: 8px; height: 100%; padding: 0 4px 0 8px;
+  opacity: 0; visibility: hidden; transform: translateX(-10px);
+  transition: opacity 0.15s, transform 0.4s var(--e-out), visibility 0s 0.4s;
+}
+.at-ipill.is-open .at-ipill__body { opacity: 1; visibility: visible; transform: none; transition-delay: 0.12s, 0.12s, 0s; }
+.at-ipill__label { flex: none; padding-right: 8px; border-right: 1px solid color-mix(in srgb, var(--_c) 30%, var(--c-surface)); font-size: 11px; color: var(--c-text-3); }
+.at-ipill__body code { flex: 1; min-width: 0; overflow: hidden; font: 12.5px var(--f-mono); color: var(--c-text); text-overflow: ellipsis; }
+.at-ipill__copy {
+  display: grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 50%; font-size: 12px; color: var(--_c);
+  transition: background-color var(--d-fade), transform var(--d-instant) var(--e-press);
+}
+.at-ipill__copy i { font-style: normal; }
+@media (hover: hover) { .at-ipill__copy:hover { background: color-mix(in srgb, var(--_c) 14%, var(--c-surface)); } }
+.at-ipill__copy:active { transform: scale(0.88); }
+.at-ipill__copy:focus-visible { outline: 2px solid var(--_c); outline-offset: -2px; }
+.at-ipill__copy .is-done, .at-ipill__copy.is-copied .is-idle { display: none; }
+.at-ipill__copy.is-copied .is-done { display: block; animation: at-pop var(--d-pop) var(--e-pop); }
+@keyframes at-pop { from { transform: scale(0.4); opacity: 0; } }
+
+/* hover hint: pops out right of the button; once open, the pill covers it and it fades */
+.at-ipill__tip {
+  position: absolute; top: 0; left: calc(var(--_s) + 10px); z-index: 0; display: flex; align-items: center; height: var(--_s); padding: 0 12px;
+  border: 1.5px solid color-mix(in srgb, var(--_c) 50%, var(--c-surface)); border-radius: 10px;
+  background: color-mix(in srgb, var(--_c) 6%, var(--c-surface)); box-shadow: 0 10px 24px -14px var(--_c);
+  font-size: 12px; font-weight: 600; color: color-mix(in srgb, var(--_c) 80%, var(--c-text)); white-space: nowrap;
+  pointer-events: none; opacity: 0; visibility: hidden; transform: translateX(-6px) scale(0.92); transform-origin: left center;
+  transition: opacity 0.18s, transform 0.3s var(--e-pop), visibility 0s 0.3s;
+}
+.at-ipill__tip::before {
+  content: ""; position: absolute; top: 50%; left: -6px; width: 9px; height: 9px; margin-top: -4.5px;
+  border: inherit; border-width: 0 0 1.5px 1.5px; border-radius: 0 0 0 2px; background: inherit; transform: rotate(45deg);
+}
+.at-ipill:not(.is-open):hover .at-ipill__tip,
+.at-ipill:not(.is-open):has(.at-ipill__btn:focus-visible) .at-ipill__tip { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+@media (hover: none) { .at-ipill__tip { display: none; } }
+/* touch: 44px circle, and the copy button fills the pill's rounded end so it is a full-size target too */
+@media (pointer: coarse) {
+  .at-ipill { --_s: var(--ipill-size, 44px); }
+  .at-ipill__body { padding-right: 0; }
+  .at-ipill__copy { width: 44px; height: 44px; font-size: 14px; }
+}

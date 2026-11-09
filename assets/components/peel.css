@@ -1,0 +1,29 @@
+/* Corner peel for peel.js. The flap overhangs the card by 110% so the folded-back part is never cut off. */
+.at-peel {
+  --peel-lift: 14px;
+  --peel-crease: color-mix(in srgb, var(--c-text) 24%, var(--c-surface));
+  --peel-back: var(--c-surface);
+  --peel-tip: color-mix(in srgb, var(--c-text) 7%, var(--c-surface));
+  position: relative; border-radius: var(--r-md);
+}
+.at-peel__under, .at-peel__face { position: absolute; inset: 0; border-radius: inherit; }
+.at-peel__under {
+  display: grid; place-items: center; background: var(--c-sunken);
+  box-shadow: inset 0 2px 10px color-mix(in srgb, var(--c-shadow-c) 16%, transparent);
+}
+.at-peel__face { background: var(--c-accent); color: var(--c-accent-ink); transition: opacity 0.35s var(--e-out); }
+.at-peel__flapwrap {
+  position: absolute; inset: -110%; pointer-events: none;
+  filter: drop-shadow(0 4px 7px color-mix(in srgb, var(--c-shadow-c) 30%, transparent));
+  transition: opacity 0.4s var(--e-out) 0.12s;
+}
+.at-peel__flap { position: absolute; inset: 0; }
+.at-peel.is-peeling .at-peel__flapwrap { opacity: 0; }
+.at-peel.is-gone .at-peel__face { opacity: 0; pointer-events: none; }
+.at-peel__grip {
+  position: absolute; right: 0; bottom: 0; z-index: 3; width: 52px; height: 52px; border-radius: 0 0 var(--r-md) 0;
+  touch-action: none; cursor: grab;
+}
+.at-peel.is-dragging .at-peel__grip { cursor: grabbing; }
+.at-peel.is-gone .at-peel__grip { display: none; }
+.at-peel__grip:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -4px; }

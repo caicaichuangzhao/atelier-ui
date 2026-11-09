@@ -1,0 +1,18 @@
+/* Pull cord for cord.js. --rest is the resting cord length; JS reads it. */
+.at-cord { --rest: 96px; position: relative; height: 240px; }
+.at-cord__line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.at-cord__line path { fill: none; stroke: var(--c-text-2); stroke-width: 2; stroke-linecap: round; }
+.at-cord__knob {
+  position: absolute; left: calc(50% - 15px); top: var(--rest); width: 30px; height: 30px; border-radius: 50%;
+  background: var(--c-surface); box-shadow: var(--sh-2), inset 0 0 0 1.5px var(--c-line-strong);
+  touch-action: none; cursor: grab;
+}
+.at-cord__knob::before { content: ""; position: absolute; inset: -10px; border-radius: 50%; } /* 50px touch target */
+.at-cord__knob::after { /* a ring that grows with the pull and locks on when the release would toggle */
+  content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--c-accent); pointer-events: none;
+  opacity: calc(var(--pull, 0) * 0.55); transform: scale(calc(0.7 + var(--pull, 0) * 0.25));
+}
+.at-cord.is-armed .at-cord__knob::after { opacity: 1; transform: scale(1.14); transition: transform var(--d-pop) var(--e-pop), opacity 0.12s; }
+.at-cord.is-armed .at-cord__knob { background: var(--c-accent); box-shadow: var(--sh-accent); }
+.at-cord.is-dragging .at-cord__knob { cursor: grabbing; }
+.at-cord__knob:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 6px; }

@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="ink" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atelier · 交互样板间</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23c2410c'/%3E%3Cpath d='M16 7 9 25h3.6l1.4-4h4l1.4 4H23L16 7Zm-1 11 1-3 1 3h-2Z' fill='%23fff'/%3E%3C/svg%3E">
+<meta name="description" content="atelier-ui 技能的样板页：按产品定位推导整套风格，每一步交互都有反馈。">
+<script>document.documentElement.classList.add('at-js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Font CSS loads without blocking the first paint: if the font host is slow or unreachable, the page still shows at once in system fonts. -->
+<link rel="stylesheet" id="webfonts" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Geist:wght@400;500;600;800&family=Geist+Mono:wght@400;500;600&family=Fredoka:wght@400;500;600;700&family=ZCOOL+KuaiLe&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Geist:wght@400;500;600;800&family=Geist+Mono:wght@400;500;600&family=Fredoka:wght@400;500;600;700&family=ZCOOL+KuaiLe&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/base.css">
+<link rel="stylesheet" href="../../assets/core.css">
+<link rel="stylesheet" href="../../assets/scrollbar.css">
+<link rel="stylesheet" href="../../assets/fx/pointer.css">
+<link rel="stylesheet" href="../../assets/fx/text.css">
+<link rel="stylesheet" href="../../assets/components/segmented.css">
+<link rel="stylesheet" href="../../assets/components/info-pill.css">
+<link rel="stylesheet" href="../../assets/components/check.css">
+<link rel="stylesheet" href="../../assets/components/button.css">
+<link rel="stylesheet" href="../../assets/components/hold.css">
+<link rel="stylesheet" href="../../assets/components/wheel.css">
+<link rel="stylesheet" href="../../assets/components/cord.css">
+<link rel="stylesheet" href="../../assets/components/peel.css">
+<link rel="stylesheet" href="../../assets/components/nav.css">
+<link rel="stylesheet" href="css/page.css">
+<link rel="stylesheet" href="css/cards.css">
+<link rel="stylesheet" href="css/specimens.css">
+<link rel="stylesheet" href="css/theme.css">
+<script src="../../assets/palette.js"></script>
+<script src="js/themes.js"></script>
+</head>
+<body>
+<div class="sc-bg" aria-hidden="true"></div>
+<a class="sc-skip" href="#main">跳到正文</a>
+<header class="sc-top">
+  <div class="sc-wrap sc-top__in">
+    <a class="sc-brand" href="#top" aria-label="Atelier 回到顶部"><span class="sc-brand__mark" id="brandMark">墨</span><span class="sc-brand__word">ATELIER</span></a>
+    <div class="at-seg sc-themes" id="themeSeg" aria-label="产品定位">
+      <span class="at-seg__glider"></span>
+      <button type="button" data-t="ink"><b>墨</b><span>Ink</span></button>
+      <button type="button" data-t="night"><b>夜</b><span>Night</span></button>
+      <button type="button" data-t="dango"><b>团</b><span>Dango</span></button>
+      <button type="button" data-t="porcelain"><b>瓷</b><span>Porcelain</span></button>
+    </div>
+    <button class="sc-mode" id="modeBtn" type="button" aria-label="切换深浅色"><svg viewBox="0 0 24 24" aria-hidden="true"><mask id="sc-moon"><rect width="24" height="24" fill="#fff"/><circle class="sc-mode__cut" cx="17" cy="7" r="5" fill="#000"/></mask><circle class="sc-mode__orb" cx="12" cy="12" r="5" fill="currentColor" mask="url(#sc-moon)"/><g class="sc-mode__rays" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></g></svg></button>
+  </div>
+  <div class="sc-ruler" aria-hidden="true"></div>
+</header>
+<main id="main">
+<section class="sc-hero sc-wrap" id="top" aria-labelledby="heroTitle">
+  <div class="sc-hero__bar">
+    <span class="at-label" id="heroLabel" data-scramble>ATELIER · INTERACTION SPECIMENS</span>
+    <span class="at-label" id="heroTheme">墨 · 编辑出版</span>
+  </div>
+  <div class="sc-stage" id="heroStage">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <h1 class="sc-h1" id="heroTitle">每一步，都有回应。</h1>
+    <span class="sc-stage__hint at-label" id="heroHint">移动指针拨开文字 · 点击打散</span>
+  </div>
+  <div class="sc-hero__foot">
+    <div>
+      <p class="sc-lead">这是一页<b>由定位推导出来</b>的界面：先说清产品是谁、给谁用，再推出配色、字体、圆角、阴影和弹簧参数。下面每个组件都把<b>按下、过程、结果</b>三段反馈做全，并把正在发生的数值实时读出来。</p>
+      <form class="sc-say" id="sayForm">
+        <label class="at-sr" for="sayInput">换一句话变成粒子</label>
+        <input id="sayInput" maxlength="16" autocomplete="off" placeholder="写一句话，回车变成粒子">
+        <button class="sc-ghost" type="submit">生成</button>
+      </form>
+    </div>
+    <dl class="sc-readout" id="heroReadout">
+      <div><dt>Particles</dt><dd data-k="count">—</dd></div>
+      <div><dt>FPS</dt><dd data-k="fps">—</dd></div>
+      <div><dt>Radius</dt><dd data-k="radius">—</dd></div>
+      <div><dt>Pointer</dt><dd data-k="pointer">—</dd></div>
+      <div><dt>Energy</dt><dd data-k="energy">—</dd></div>
+      <div><dt>Spring</dt><dd data-k="spring">—</dd></div>
+    </dl>
+  </div>
+</section>
+<section class="sc-sec sc-wrap" id="style" aria-labelledby="styleTitle">
+  <header class="sc-head">
+    <span class="sc-head__num" aria-hidden="true">01</span>
+    <span class="at-label" data-scramble>POSITIONING → STYLE SYSTEM</span>
+    <h2 id="styleTitle">先定位，再推出整套风格</h2>
+    <p>选一个产品定位，整页的字体、圆角、阴影、配色和弹簧参数会一起换掉。颜色不是挑出来的，是用 OKLCH 从一个主色相推出来，再逐对检查对比度。拖动色相，整套颜色会重新推导。</p>
+  </header>
+  <div class="sc-derive">
+    <div class="sc-positions" id="positions" role="radiogroup" aria-label="产品定位"></div>
+    <aside class="sc-brief" id="brief" aria-label="当前风格规范">
+      <div class="sc-brief__top">
+        <span class="sc-brief__glyph" id="briefGlyph">墨</span>
+        <div><h3 id="briefName">墨 · Ink</h3><span class="at-label" id="briefRole">编辑出版</span></div>
+      </div>
+      <dl class="sc-spec" id="briefSpec"></dl>
+      <div class="sc-swatches" id="briefSwatches"></div>
+      <div class="sc-hue">
+        <div class="sc-hue__row"><label class="at-label" for="hueInput">主色相 · ACCENT HUE</label><b class="at-num" id="hueValue">32°</b></div>
+        <input type="range" id="hueInput" min="0" max="359" step="1" value="32">
+      </div>
+      <ul class="sc-contrast" id="briefContrast" aria-label="对比度检查"></ul>
+      <div class="sc-brief__actions">
+        <button class="sc-ghost" type="button" id="copyTokens">复制这套 tokens</button>
+        <button class="sc-ghost" type="button" id="resetHue">恢复推荐色相</button>
+      </div>
+    </aside>
+  </div>
+</section>
+<section class="sc-sec sc-wrap" id="specimens" aria-labelledby="specTitle">
+  <header class="sc-head">
+    <span class="sc-head__num" aria-hidden="true">02</span>
+    <span class="at-label" data-scramble>SPECIMENS · FEEDBACK AT EVERY STEP</span>
+    <h2 id="specTitle">十一个组件，每一步都有回应</h2>
+    <p>每张卡下面是实时读数和步骤灯：你做一步，对应的灯就亮一格。点卡片底部的 i，可以看到并复制这个组件的 AI 描述词，交给任何模型去复现。</p>
+  </header>
+  <div class="sc-grid">
+    <article class="sc-card" id="c-check" data-reveal data-ipill-bound data-steps="按下|画勾|划线|迸开" data-prompt="勾选框完成反馈：按下时方框缩到 0.86（90ms）；松开后对勾沿路径描边画出（约 240ms，snappy 弹簧），文字同时加删除线并降为次级色；方框中心迸出 10 条短线与圆点，外加一圈渐隐圆环，500–700ms 内消散；进度条和计数同步更新。取消勾选时静默回退，不迸开。触屏附 10ms 震动。">
+      <header class="sc-card__head"><span class="sc-card__no">01</span><div class="sc-card__title"><h3>完成迸发</h3><span class="at-label">DONE BURST</span></div></header>
+      <div class="sc-card__stage">
+        <div class="sp-col sp-list" id="checkList">
+          <label class="at-check"><input type="checkbox" checked><span class="at-check__box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span class="at-check__text">写清产品定位</span></label>
+          <label class="at-check"><input type="checkbox"><span class="at-check__box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span class="at-check__text">推导配色与字体</span></label>
+          <label class="at-check"><input type="checkbox"><span class="at-check__box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span class="at-check__text">给按钮加按压反馈</span></label>
+          <label class="at-check"><input type="checkbox"><span class="at-check__box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span class="at-check__text">在手机上走一遍</span></label>
+          <div class="sp-meter" id="checkMeter" aria-hidden="true"><i></i><b>1/4</b></div>
+        </div>
+      </div>
+      <dl class="sc-readout"><div><dt>Done</dt><dd data-k="done">1/4</dd></div><div><dt>Last</dt><dd data-k="last">—</dd></div><div><dt>Bursts</dt><dd data-k="bursts">0</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card" id="c-seal" data-reveal data-ipill-bound data-steps="按下|蓄力|落印|完成" data-prompt="长按盖章确认：按住按钮 0.9 秒，外圈进度环顺时针填满，按钮随之下沉 8%、阴影收紧；纸上的印章同步从放大 1.5 倍、模糊 3px、几乎透明逐渐收拢到位。提前松手：进度环以约 3 倍速倒回，并提示「已取消」。按满：印章以加速曲线砸下并轻微回弹，纸面轻震一下，按钮变成主色实心。印章用噪点遮罩做出不均匀的印泥质感，正片叠底叠在纸上。">
+      <header class="sc-card__head"><span class="sc-card__no">02</span><div class="sc-card__title"><h3>长按盖章</h3><span class="at-label">HOLD TO SEAL</span></div></header>
+      <div class="sc-card__stage">
+        <div class="sp-seal">
+          <div class="sp-paper at-paper" id="sealPaper">
+            <b>服务协议 · 第 3 版</b><i></i><i></i><i></i><i></i><i></i>
+            <small>No. 2048</small>
+            <span class="at-seal" aria-hidden="true">核准<br>之印</span>
+          </div>
+          <div class="sp-seal__side" id="sealSide">
+            <button class="at-hold" type="button" id="sealBtn" aria-label="按住盖章"><svg class="at-hold__ring" viewBox="0 0 48 48" aria-hidden="true"><circle class="at-hold__track" cx="24" cy="24" r="21"/><circle class="at-hold__fill" cx="24" cy="24" r="21"/></svg><span class="at-hold__label">按住</span></button>
+            <button class="sp-reset" type="button" id="sealReset">重来</button>
+          </div>
+        </div>
+      </div>
+      <dl class="sc-readout"><div><dt>Press</dt><dd data-k="press">0%</dd></div><div><dt>Held</dt><dd data-k="held">0.00s</dd></div><div><dt>State</dt><dd data-k="state">待盖章</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card" id="c-range" data-reveal data-ipill-bound data-steps="按下|滑动|越过中点|落定" data-prompt="分段滑块：选中块在四个选项间直接滑过去，大小始终不变，不拉伸不变形；时长随距离增长（260ms + 0.3ms/px，最多 520ms），曲线 cubic-bezier(.25,.8,.25,1)，滑到一半再点别的就从当前位置转向。可以按住选中块直接拖，越过下一格中点才切换，并轻震一下；方向键也能切换。下方柱状图逐根错开 22ms 换成新数据，最高那根用主色。">
+      <header class="sc-card__head"><span class="sc-card__no">03</span><div class="sc-card__title"><h3>滑块分段</h3><span class="at-label">GLIDER SEGMENTS</span></div></header>
+      <div class="sc-card__stage">
+        <div class="sp-range">
+          <div class="at-seg" id="rangeSeg" aria-label="统计周期">
+            <span class="at-seg__glider"></span>
+            <button type="button" aria-checked="false">日</button><button type="button" aria-checked="true">周</button><button type="button" aria-checked="false">月</button><button type="button" aria-checked="false">年</button>
+          </div>
+          <div class="sp-bars" id="rangeBars" aria-hidden="true"></div>
+        </div>
+      </div>
+      <dl class="sc-readout"><div><dt>Index</dt><dd data-k="index">周</dd></div><div><dt>Offset</dt><dd data-k="offset">0px</dd></div><div><dt>Glide</dt><dd data-k="glide">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card" id="c-wheel" data-reveal data-ipill-bound data-steps="拖动|甩出|滑行|吸附" data-prompt="惯性滚轮选择器：选项排在一个看不见的圆柱上，相邻相隔 18°，离中心越远越暗、越往后倒。拖动时 1:1 跟手，两端有橡皮筋阻力；松手按速度 × 0.22 预测落点，用弹簧（k 170，c 26）滑过去并吸附到最近一项，每跨过一项轻震一下；手指停住再松开就不甩。滚轮和方向键一次走一格，读屏软件读到当前金额。">
+      <header class="sc-card__head"><span class="sc-card__no">04</span><div class="sc-card__title"><h3>惯性滚轮</h3><span class="at-label">INERTIA WHEEL</span></div></header>
+      <div class="sc-card__stage">
+        <div class="sp-wheel">
+          <div class="at-wheel" id="wheel" tabindex="0" aria-label="充值金额"><div class="at-wheel__lens"></div></div>
+          <div class="sp-sum">
+            <span class="at-label">充值金额</span>
+            <b id="wheelSum">¥100</b>
+            <small>示例金额，非真实价格</small>
+            <button class="sc-ghost" type="button" id="wheelSpin">随手一甩</button>
+          </div>
+        </div>
+      </div>
+      <dl class="sc-readout"><div><dt>Pos</dt><dd data-k="pos">4.00</dd></div><div><dt>Vel</dt><dd data-k="vel">0</dd></div><div><dt>Phase</dt><dd data-k="phase">静止</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card" id="c-cord" data-reveal data-ipill-bound data-steps="抓住|下拉|过线|松手" data-prompt="拉绳开关：台灯下垂着一根绳和一个球，按住球往下拉，绳子拉长，阻力随距离指数增长（最多 150px）；球外的圆环随拉力变大，拉过 70px 圆环锁定、球变主色并轻震，提示「松手即切换」。松手：绳子带一点摆动弹回，同时从球的位置扩散出圆形转场切换深浅色，台灯亮起投下光锥。没拉到 70px 就只弹回不切换。点击或回车给一个短促下拉，同样切换。">
+      <header class="sc-card__head"><span class="sc-card__no">05</span><div class="sc-card__title"><h3>拉绳开关</h3><span class="at-label">PULL CORD</span></div></header>
+      <div class="sc-card__stage">
+        <div class="sp-lamp" id="lamp">
+          <i class="sp-lamp__cone"></i>
+          <div class="at-cord" id="cord"><svg class="at-cord__line" aria-hidden="true"><path/></svg><button class="at-cord__knob" type="button" aria-label="拉一下切换深浅色"></button></div>
+          <i class="sp-lamp__shade"></i><i class="sp-lamp__bulb"></i>
+          <span class="sp-lamp__hint at-label">往下拉 · 开夜灯</span>
+        </div>
+      </div>
+      <dl class="sc-readout"><div><dt>Pull</dt><dd data-k="pull">0px</dd></div><div><dt>Threshold</dt><dd data-k="threshold">70px</dd></div><div><dt>State</dt><dd data-k="state">静止</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card" id="c-peel" data-reveal data-ipill-bound data-steps="抓角|掀起|过半|撕下" data-prompt="揭角贴纸：右下角预先翘起 14px，悬停再翘高一点，告诉用户这里能揭。拖动时，折痕始终是「角点与指尖连线」的垂直平分线，翻起的部分沿折痕镜像过去，背面用渐变画出折痕阴影和尖角高光，并带投影。指尖走过对角线的 45% 后进入可撕状态：投影加深、轻震一下；这时松手，贴纸整张撕下飞走，露出下面的邀请码；没过线就用弹簧贴回去。键盘回车直接揭开。">
+      <header class="sc-card__head"><span class="sc-card__no">06</span><div class="sc-card__title"><h3>揭角贴纸</h3><span class="at-label">CORNER PEEL</span></div></header>
+      <div class="sc-card__stage">
+        <div class="at-peel sp-ticket" id="peel">
+          <div class="at-peel__under"><span class="at-label">邀请码</span><b>ATL-7Q2K</b><button class="sp-reset" type="button" id="peelReset">再贴一张</button></div>
+          <div class="at-peel__face"><span class="at-label">INVITE · 内测资格</span><b>揭开右下角<br>领取邀请码</b><small>VALID 30 DAYS</small></div>
+          <div class="at-peel__flapwrap" aria-hidden="true"><div class="at-peel__flap"></div></div>
+          <button class="at-peel__grip" type="button" aria-label="揭开贴纸"></button>
+        </div>
+      </div>
+      <dl class="sc-readout"><div><dt>Lift</dt><dd data-k="lift">0%</dd></div><div><dt>Tip</dt><dd data-k="tip">0px</dd></div><div><dt>State</dt><dd data-k="state">贴着</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card is-wide" id="c-bento" data-reveal data-ipill-bound data-steps="进入|聚光|刷新|滚动" data-steps-touch="按下|刷新|滚动" data-prompt="聚光便当格：几个数据格共用一束跟随指针的光。格子边框用 mask 只露出 1px 的亮边，亮在指针附近 220px 内，内部再铺一层极淡的主色光晕；指针离开整组，0.4 秒淡出。数字用里程表式滚动：每一位是一条 0–9 的竖条，个位先动，高位依次延迟 45ms；位数变化时重建列。读屏软件读到的是普通文本。触屏上不出光，只保留数字滚动。">
+      <header class="sc-card__head"><span class="sc-card__no">07</span><div class="sc-card__title"><h3>聚光数据格 + 滚动数字</h3><span class="at-label">SPOTLIGHT BENTO · ODOMETER</span></div>
+        <button class="sc-card__act" type="button" id="bentoRefresh" aria-label="刷新数据"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></svg></button></header>
+      <div class="sc-card__stage">
+        <div class="sp-bento" id="bento">
+          <div class="sp-tile at-spot"><span class="at-label">今日调用</span><b data-odo="calls">128,406</b><small>较昨日 +6.2%</small></div>
+          <div class="sp-tile at-spot"><span class="at-label">成功率</span><b><span data-odo="ok">99.2</span><u>%</u></b><small>近 24 小时</small></div>
+          <div class="sp-tile at-spot"><span class="at-label">P95 延迟</span><b><span data-odo="p95">182</span><u>ms</u></b><small>全部模型</small></div>
+          <div class="sp-tile at-spot"><span class="at-label">活跃密钥</span><b data-odo="keys">36</b><small>3 个即将过期</small></div>
+          <div class="sp-tile at-spot"><span class="at-label">本月 Tokens</span><b><span data-odo="tok">4.82</span><u>M</u></b><small>示例数据</small></div>
+        </div>
+      </div>
+      <dl class="sc-readout"><div><dt>Pointer</dt><dd data-k="pointer">—</dd></div><div><dt>Rolled</dt><dd data-k="rolled">0 位</dd></div><div><dt>Refresh</dt><dd data-k="refresh">0</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card" id="c-pill" data-reveal data-ipill-bound data-steps="悬停|展开|复制|收起" data-steps-touch="轻点|展开|复制|收起" data-prompt="信息胶囊：一个圆形 i 按钮，鼠标下 32px，触屏上 44px（手指的最小点按尺寸）。悬停时右侧弹出带小三角的提示气泡；点击后按钮本身向右长成胶囊，内容从左到右揭开，末端带复制按钮，i 转一圈变成实心并发出一圈光晕。展开宽度 = 按钮 + 内容自然宽度，到边界前 16px 截断成省略号。同一时间只展开一个，Esc 或点外面收回成圆；复制成功图标变对勾。">
+      <header class="sc-card__head"><span class="sc-card__no">08</span><div class="sc-card__title"><h3>信息胶囊</h3><span class="at-label">INFO PILL</span></div></header>
+      <div class="sc-card__stage" data-ipill-bound>
+        <div class="sp-keys" id="keys">
+          <div class="sp-key"><span>回调地址</span>
+            <span class="at-ipill"><span class="at-ipill__shell"><button class="at-ipill__btn" type="button" aria-expanded="false" aria-label="查看回调地址">i</button><span class="at-ipill__body"><span class="at-ipill__label">回调</span><code>https://api.example.com/hooks/pay</code><button class="at-ipill__copy" type="button" aria-label="复制回调地址"><i class="is-idle">⧉</i><i class="is-done">✓</i></button></span></span><span class="at-ipill__tip" aria-hidden="true">点击查看回调地址</span></span>
+            <em>支付结果通知</em></div>
+          <div class="sp-key"><span>API Key</span>
+            <span class="at-ipill"><span class="at-ipill__shell"><button class="at-ipill__btn" type="button" aria-expanded="false" aria-label="查看 API Key">i</button><span class="at-ipill__body"><span class="at-ipill__label">密钥</span><code data-copy="sk-demo-4f8a2c91e7b3d6053f9a">sk-demo-••••••••3f9a</code><button class="at-ipill__copy" type="button" aria-label="复制 API Key"><i class="is-idle">⧉</i><i class="is-done">✓</i></button></span></span><span class="at-ipill__tip" aria-hidden="true">点击查看密钥</span></span>
+            <em>示例密钥，不可用</em></div>
+          <div class="sp-key"><span>默认模型</span>
+            <span class="at-ipill" style="--tone: var(--c-spice)"><span class="at-ipill__shell"><button class="at-ipill__btn" type="button" aria-expanded="false" aria-label="查看默认模型">i</button><span class="at-ipill__body"><span class="at-ipill__label">模型</span><code>gpt-4o-mini</code><button class="at-ipill__copy" type="button" aria-label="复制模型名"><i class="is-idle">⧉</i><i class="is-done">✓</i></button></span></span><span class="at-ipill__tip" aria-hidden="true">--tone 换色</span></span>
+            <em>用 --tone 换成点缀色</em></div>
+        </div>
+      </div>
+      <dl class="sc-readout"><div><dt>Open</dt><dd data-k="open">—</dd></div><div><dt>Width</dt><dd data-k="width">32px</dd></div><div><dt>Copied</dt><dd data-k="copied">0 次</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card" id="c-pub" data-reveal data-ipill-bound data-steps="靠近|按下|处理中|结果" data-steps-touch="按下|处理中|结果|复位" data-prompt="磁吸状态按钮：指针进入按钮周围 70px，按钮朝指针偏移距离的 35%，文字再多偏一点，离开后 0.35 秒回正。按下缩到 0.96。点击后按钮收窄成一个转圈的圆（至少转 500ms，避免一闪而过）；成功：圆变对勾，迸出一圈小粒子，1.5 秒后展开回原状；失败：横向抖动、变成危险色并显示「失败，重试」，2.6 秒后自动复原。处理中 aria-busy 为 true。">
+      <header class="sc-card__head"><span class="sc-card__no">09</span><div class="sc-card__title"><h3>磁吸状态按钮</h3><span class="at-label">MAGNETIC STATE BUTTON</span></div></header>
+      <div class="sc-card__stage" id="pubStage">
+        <div class="sp-pub">
+          <span class="at-btn-wrap" id="pubWrap"><button class="at-btn" type="button" id="pubBtn"><span class="at-btn__label" data-magnetic-inner>发布更新</span><svg class="at-btn__ring" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg><svg class="at-btn__tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 4L18.5 8"/></svg></button></span>
+          <label class="sp-switch"><input type="checkbox" id="pubFail"><i></i>模拟失败</label>
+        </div>
+      </div>
+      <dl class="sc-readout"><div><dt>State</dt><dd data-k="state">idle</dd></div><div><dt>Elapsed</dt><dd data-k="elapsed">—</dd></div><div><dt>Result</dt><dd data-k="result">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card" id="c-feed" data-reveal data-ipill-bound data-steps="靠近|变粗|拖动|淡出" data-steps-touch="按住|滑动|松手|停下" data-prompt="隐形滚动条：保留原生滚动（滚轮、触摸、键盘、读屏都照常），只把原生滚动条藏起来，叠加一条 4px 的细线。平时看不见；滚动时淡入，停下后淡出；指针离右边缘 56px 内开始显现，越近越粗（4→8px）越实，并露出轨道。按住可拖，拖动时变主色，点轨道直接跳到对应位置。触屏设备不接管，保留系统自己的滚动条。">
+      <header class="sc-card__head"><span class="sc-card__no">10</span><div class="sc-card__title"><h3>隐形滚动条</h3><span class="at-label">PROXIMITY SCROLLBAR</span></div></header>
+      <div class="sc-card__stage">
+        <div class="at-scroll sp-feed" id="feed"><div class="at-scroll__view" tabindex="0" aria-label="请求日志（示例）"><ul id="feedList"></ul></div></div>
+      </div>
+      <dl class="sc-readout"><div><dt>Near</dt><dd data-k="near">0%</dd></div><div><dt>Scroll</dt><dd data-k="scroll">0%</dd></div><div><dt>Rows</dt><dd data-k="rows">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+    <article class="sc-card" id="c-trail" data-reveal data-ipill-bound data-steps="移动|加速|变细|消散" data-prompt="墨迹拖尾：指针在区域内移动时留下一道拖尾，0.5 秒内消散。速度越快线越细，像毛笔提笔；尾端收尖并变透明。笔触跟着风格换：编辑风是墨色笔锋，暗色开发者风是叠加发光的光迹，可爱风是一串彩色团子。只放在有边界的区域里，不要铺满整页压在正文上。">
+      <header class="sc-card__head"><span class="sc-card__no">11</span><div class="sc-card__title"><h3>墨迹拖尾</h3><span class="at-label">INK TRAIL</span></div></header>
+      <div class="sc-card__stage">
+        <div class="sp-trail at-dots" id="trail"><canvas id="trailCanvas" aria-hidden="true"></canvas><span class="at-label" id="trailHint">在这里划过</span></div>
+      </div>
+      <dl class="sc-readout"><div><dt>Speed</dt><dd data-k="speed">0</dd></div><div><dt>Width</dt><dd data-k="width">—</dd></div><div><dt>Brush</dt><dd data-k="brush">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+  </div>
+</section>
+<section class="sc-sec sc-wrap" id="devices" aria-labelledby="devTitle">
+  <header class="sc-head">
+    <span class="sc-head__num" aria-hidden="true">03</span>
+    <span class="at-label" data-scramble>ONE SOURCE · EVERY SCREEN</span>
+    <h2 id="devTitle">一份导航，跟着屏幕换形态</h2>
+    <p>同一份导航数据，宽屏是带文字的侧栏，中屏收成图标栏（悬停出名字），手机变成底部胶囊、只显示当前项的文字。拖右侧把手改变宽度，看它在哪里换形态。</p>
+  </header>
+  <div class="sc-frame-wrap">
+    <div class="sc-frame" id="frame" data-mode="rail">
+      <nav class="at-nav" id="frameNav" data-mode="rail" aria-label="示例应用导航">
+        <span class="at-nav__glider"></span>
+        <a class="at-nav__item" href="#devices" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z"/></svg><span class="at-nav__label">概览</span></a>
+        <a class="at-nav__item" href="#devices"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="3.5"/><path d="M11.5 12H20M17 12v3M20 12v2.5"/></svg><span class="at-nav__label">密钥</span></a>
+        <a class="at-nav__item" href="#devices"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M10 20V5M15 20v-7M20 20V8"/></svg><span class="at-nav__label">用量</span></a>
+        <a class="at-nav__item" href="#devices"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="7" cy="17" r="2" fill="currentColor"/></svg><span class="at-nav__label">设置</span></a>
+      </nav>
+      <div class="sc-frame__page" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="sc-frame__handle" id="frameHandle" role="slider" tabindex="0" aria-label="示例窗口宽度" aria-valuemin="280" aria-valuemax="1200" aria-valuenow="1200"></div>
+    </div>
+    <div class="sc-adapt-foot">
+      <dl class="sc-readout" id="frameReadout"><div><dt>Width</dt><dd data-k="width">—</dd></div><div><dt>Layout</dt><dd data-k="layout">侧栏</dd></div><div><dt>Next</dt><dd data-k="next">—</dd></div></dl>
+      <ol class="sc-steps" id="frameSteps"><li class="is-on">侧栏</li><li>图标栏</li><li>底部胶囊</li></ol>
+    </div>
+  </div>
+  <div class="sc-rules">
+    <article class="sc-rule"><span class="at-label">TOUCH</span><h3>可点区域不小于 44px</h3><p>图标再小，点击区也要撑到 44×44，相邻目标留 8px。拖拽组件声明 touch-action，别和页面滚动抢手势。</p></article>
+    <article class="sc-rule"><span class="at-label">SAFE AREA</span><h3>贴底元素让开安全区</h3><p>底部胶囊加 env(safe-area-inset-bottom)；全屏高度用 100dvh，地址栏伸缩时不跳。</p></article>
+    <article class="sc-rule"><span class="at-label">INPUT</span><h3>悬停只是加分，按压才是底线</h3><p>悬停效果全部有点击替代，按压反馈 100ms 内出现。输入框至少 16px，iOS 才不放大；小程序用 hover-class 和 rpx。</p></article>
+    <article class="sc-rule"><span class="at-label">BUDGET</span><h3>特效按设备分档</h3><p>粒子数按屏宽减半，像素比封顶 2；滚出视口或切到后台就停帧；减少动态时只保留淡入淡出。</p></article>
+  </div>
+</section>
+</main>
+<footer class="sc-foot sc-wrap">
+  <p class="sc-foot__big">从定位出发，<br>到每一次按下。</p>
+  <div class="sc-foot__meta">
+    <span class="at-label">ATELIER-UI · SKILL SPECIMEN</span>
+    <span class="at-label">数据均为示例 · 图标为原创几何线条</span>
+  </div>
+</footer>
+<nav class="at-nav sc-dock" id="dock" data-mode="capsule" aria-label="页内导航">
+  <span class="at-nav__glider"></span>
+  <a class="at-nav__item" href="#top" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c.6 4.2 2.3 5.9 6.5 6.5-4.2.6-5.9 2.3-6.5 6.5-.6-4.2-2.3-5.9-6.5-6.5 4.2-.6 5.9-2.3 6.5-6.5z"/><path d="M18.5 16.5v4M16.5 18.5h4"/></svg><span class="at-nav__label">开场</span></a>
+  <a class="at-nav__item" href="#style"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M14.8 9.2 13 13l-3.8 1.8L11 11z"/></svg><span class="at-nav__label">定位</span></a>
+  <a class="at-nav__item" href="#specimens"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="3.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span class="at-nav__label">组件</span></a>
+  <a class="at-nav__item" href="#devices"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="13" height="9.5" rx="1.5"/><path d="M6.5 18h5M9 14.5V18"/><rect x="17" y="8" width="4.5" height="10" rx="1.2"/></svg><span class="at-nav__label">多端</span></a>
+</nav>
+<script src="../../assets/core.js"></script>
+<script src="../../assets/scrollbar.js"></script>
+<script src="../../assets/fx/particles.js"></script>
+<script src="../../assets/fx/pointer.js"></script>
+<script src="../../assets/fx/ribbon.js"></script>
+<script src="../../assets/fx/text.js"></script>
+<script src="../../assets/components/segmented.js"></script>
+<script src="../../assets/components/check.js"></script>
+<script src="../../assets/components/info-pill.js"></script>
+<script src="../../assets/components/button.js"></script>
+<script src="../../assets/components/hold.js"></script>
+<script src="../../assets/components/wheel.js"></script>
+<script src="../../assets/components/cord.js"></script>
+<script src="../../assets/components/peel.js"></script>
+<script src="../../assets/components/nav.js"></script>
+<script src="js/kit.js"></script>
+<script src="js/specimens.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

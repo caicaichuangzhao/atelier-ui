@@ -1,0 +1,31 @@
+/* Segmented control for segmented.js. Equal-width segments keep the glider one constant size. */
+.at-seg {
+  position: relative; display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+  padding: 4px; border-radius: calc(var(--r-control) + 4px);
+  background: var(--c-sunken); box-shadow: inset 0 0 0 var(--line-w) var(--c-line);
+  user-select: none; -webkit-user-select: none; touch-action: pan-y;
+}
+.at-seg > button {
+  position: relative; z-index: 1; min-height: 36px; padding: 0 18px; border-radius: var(--r-control);
+  font-size: var(--fs-sm); font-weight: var(--w-medium); color: var(--c-text-2); white-space: nowrap;
+  transition: color var(--d-fade) var(--e-fade);
+}
+.at-seg > button::before { /* press feedback appears under the finger before anything else moves */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--c-press); opacity: 0;
+  transition: opacity var(--d-instant) var(--e-press);
+}
+.at-seg > button:active:not([aria-checked="true"])::before { opacity: 1; }
+.at-seg > button.is-over, .at-seg > button[aria-checked="true"] { color: var(--c-text); }
+@media (hover: hover) { .at-seg > button:hover { color: var(--c-text); } }
+.at-seg > button:focus-visible { outline-offset: -2px; }
+.at-seg > button[aria-checked="true"] { cursor: grab; }
+.at-seg.is-dragging, .at-seg.is-dragging > button { cursor: grabbing; }
+@media (pointer: coarse) { .at-seg > button { min-width: 44px; min-height: 44px; } } /* touch target */
+
+.at-seg__glider {
+  position: absolute; top: 0; left: 0; z-index: 0; border-radius: var(--r-control); pointer-events: none;
+  background: var(--c-surface); box-shadow: var(--sh-1), var(--hl-inset);
+  transition: box-shadow var(--d-fade) var(--e-fade);
+}
+.at-seg__glider:not(.is-ready) { opacity: 0; }
+.at-seg.is-dragging .at-seg__glider { box-shadow: var(--sh-2), var(--hl-inset); }

@@ -1,0 +1,26 @@
+/* Done check for check.js */
+.at-check {
+  position: relative; display: flex; align-items: center; gap: 12px; min-height: var(--tap); padding: 0 12px;
+  border-radius: var(--r-control); cursor: pointer; user-select: none; -webkit-user-select: none;
+  transition: background-color var(--d-fade) var(--e-fade);
+}
+@media (hover: hover) { .at-check:hover { background: var(--c-hover); } }
+.at-check input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.at-check__box {
+  display: grid; place-items: center; flex: none; width: 22px; height: 22px;
+  border-radius: calc(var(--r-control) * 0.6); box-shadow: inset 0 0 0 1.5px var(--c-line-strong); background: var(--c-surface);
+  transition: transform var(--d-pop) var(--e-pop), background-color var(--d-fade), box-shadow var(--d-fade);
+}
+.at-check:active .at-check__box { transform: scale(0.86); transition: transform var(--d-instant) var(--e-press); }
+.at-check input:focus-visible + .at-check__box { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.at-check__box svg { width: 16px; height: 16px; fill: none; stroke: var(--c-accent-ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.at-check__box path { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset 0.2s var(--e-in); }
+.at-check.is-done .at-check__box { background: var(--c-accent); box-shadow: inset 0 0 0 1.5px var(--c-accent); }
+.at-check.is-done .at-check__box path { stroke-dashoffset: 0; transition: stroke-dashoffset 0.32s var(--e-out) 0.06s; }
+
+/* the strike draws left to right after the tick */
+.at-check__text {
+  background: linear-gradient(currentColor, currentColor) 0 55% / 0 1.5px no-repeat;
+  transition: background-size 0.3s var(--e-out), color var(--d-base) var(--e-fade);
+}
+.at-check.is-done .at-check__text { background-size: 100% 1.5px; color: var(--c-text-3); transition-delay: 0.14s; }

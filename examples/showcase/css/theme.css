@@ -1,0 +1,86 @@
+/* The four positionings as token overrides. Components never change; only type, shape, depth and motion do.
+   Colors come from palette.js (inline on <html>), so nothing here hard-codes a hue. */
+
+/* 墨 Ink: editorial. Serif display, near-square corners, hairlines instead of shadows, calm springs. */
+[data-theme="ink"] {
+  --f-display: Fraunces, "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --tr-display: -0.01em;
+  --r-xs: 2px; --r-sm: 3px; --r-md: 4px; --r-lg: 6px; --r-xl: 8px;
+  --r-control: 3px; --r-card: 6px; --r-panel: 8px;
+  --card-shadow: 0 0 0 1px var(--c-line);
+  --card-shadow-hover: 0 0 0 1px var(--c-line-strong);
+  --e-move: var(--e-calm); --d-move: var(--d-calm); --e-pop: var(--e-calm); --d-pop: var(--d-calm);
+  --spring-k: 195; --spring-c: 28;
+  --num-c: var(--c-accent);
+}
+[data-theme="ink"] .sc-bg { background-image: radial-gradient(color-mix(in srgb, var(--c-text) 14%, transparent) 1px, transparent 1.4px); background-size: 22px 22px; }
+[data-theme="ink"] .sc-head h2, [data-theme="ink"] .sc-foot__big { font-weight: 600; }
+
+/* 夜航 Night: developer platform. Grotesk and mono, glow instead of shadow, snappy springs. */
+[data-theme="night"] {
+  --f-display: Geist, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --f-sans: Geist, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --f-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --tr-display: -0.035em;
+  --r-xs: 3px; --r-sm: 6px; --r-md: 8px; --r-lg: 12px; --r-xl: 16px;
+  --r-control: 6px; --r-card: 12px; --r-panel: 16px;
+  --card-shadow: 0 0 0 1px var(--c-line), var(--hl-inset);
+  --card-shadow-hover: 0 0 0 1px color-mix(in srgb, var(--c-accent) 40%, var(--c-line)), 0 0 32px -12px color-mix(in srgb, var(--c-accent) 45%, transparent);
+  --e-move: var(--e-snappy); --d-move: var(--d-snappy); --e-pop: var(--e-snappy); --d-pop: var(--d-snappy);
+  --spring-k: 385; --spring-c: 33;
+  --num-c: var(--c-accent);
+}
+[data-theme="night"] .sc-bg {
+  background-image: linear-gradient(color-mix(in srgb, var(--c-text) 5%, transparent) 1px, transparent 1px),
+                    linear-gradient(90deg, color-mix(in srgb, var(--c-text) 5%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000, transparent); mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000, transparent);
+}
+[data-theme="night"][data-mode="dark"] .sc-head__num { text-shadow: 0 0 28px color-mix(in srgb, var(--c-accent) 55%, transparent); }
+
+/* 团子 Dango: playful. Round type, pill shapes, chunky outlines with a solid offset shadow, bouncy springs. */
+[data-theme="dango"] {
+  --f-display: Fredoka, "ZCOOL KuaiLe", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --f-sans: Fredoka, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  --tr-display: 0;
+  --r-xs: 8px; --r-sm: 12px; --r-md: 16px; --r-lg: 22px; --r-xl: 30px;
+  --r-control: 999px; --r-card: 24px; --r-panel: 30px;
+  --line-w: 2px;
+  --card-shadow: 0 0 0 2px var(--c-text), 4px 5px 0 0 var(--c-text);
+  --card-shadow-hover: 0 0 0 2px var(--c-text), 6px 8px 0 0 var(--c-text);
+  --e-move: var(--e-snappy); --d-move: var(--d-snappy); --e-pop: var(--e-bouncy); --d-pop: var(--d-bouncy);
+  --spring-k: 158; --spring-c: 15.6;
+  --num-c: var(--c-accent);
+}
+@media (hover: hover) { [data-theme="dango"] .sc-card:hover { translate: -2px -3px; } }
+[data-theme="dango"] .sc-head__num { -webkit-text-stroke: 3px var(--c-text); paint-order: stroke fill; }
+[data-theme="dango"] .sc-bg { background-image: radial-gradient(color-mix(in srgb, var(--c-accent) 30%, transparent) 2.5px, transparent 3px); background-size: 34px 34px; background-position: 0 0; }
+
+/* 瓷 Porcelain: spatial. System type, concentric radii, frosted glass with a highlight edge, gentle springs. */
+[data-theme="porcelain"] {
+  --f-display: system-ui, -apple-system, "Segoe UI Variable Display", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --f-mono: ui-monospace, "SF Mono", "JetBrains Mono", Consolas, monospace;
+  --tr-display: -0.025em;
+  --r-xs: 6px; --r-sm: 10px; --r-md: 14px; --r-lg: 20px; --r-xl: 28px;
+  --r-control: 12px; --r-card: 22px; --r-panel: 28px;
+  --card-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.7), 0 1px 1px color-mix(in srgb, var(--c-shadow-c) 6%, transparent), 0 18px 40px -22px color-mix(in srgb, var(--c-shadow-c) 38%, transparent);
+  --card-shadow-hover: inset 0 0 0 1px rgb(255 255 255 / 0.9), 0 2px 4px color-mix(in srgb, var(--c-shadow-c) 6%, transparent), 0 28px 56px -24px color-mix(in srgb, var(--c-shadow-c) 45%, transparent);
+  --e-move: var(--e-gentle); --d-move: var(--d-gentle); --e-pop: var(--e-gentle); --d-pop: var(--d-gentle);
+  --spring-k: 158; --spring-c: 22.6;
+  --num-c: var(--c-accent);
+}
+[data-theme="porcelain"][data-mode="dark"] {
+  --card-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.09), inset 0 1px 0 rgb(255 255 255 / 0.08), 0 18px 40px -22px #000;
+  --card-shadow-hover: inset 0 0 0 1px rgb(255 255 255 / 0.14), inset 0 1px 0 rgb(255 255 255 / 0.1), 0 28px 56px -24px #000;
+}
+[data-theme="porcelain"] .sc-card, [data-theme="porcelain"] .sc-brief, [data-theme="porcelain"] .sc-stage, [data-theme="porcelain"] .sc-rule {
+  background: color-mix(in srgb, var(--c-surface) 72%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6); backdrop-filter: blur(20px) saturate(1.6);
+}
+[data-theme="porcelain"] .sc-bg { /* two still color fields behind the glass; static, so the blur stays cheap */
+  background:
+    radial-gradient(40vmax 34vmax at 12% 8%, color-mix(in srgb, var(--c-accent) 22%, transparent), transparent 70%),
+    radial-gradient(36vmax 30vmax at 92% 46%, color-mix(in srgb, var(--c-spice) 26%, transparent), transparent 70%);
+}
