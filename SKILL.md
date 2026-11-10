@@ -1,6 +1,6 @@
 ---
 name: atelier-ui
-description: "设计有高级感、带动效、每一步操作都有反馈的界面：从产品定位推导整套风格（配色、字体、图标、圆角、间距、景深、动效、隐形滚动条），在用户的粗略概念上做出原创组件，按设备和输入方式适配桌面、平板、手机 H5、小程序和客户端，克制地搭配悬停、指针跟随、粒子文字等特效；用户明确要求时给出生图模型用的界面预览提示词。适用于设计或改版界面、页面、组件、落地页、后台、移动端或小程序界面、设计系统和风格规范，或者用户提到高级感、动效、交互反馈、鼠标特效、粒子文字、配色、隐形滚动条、UI 生图提示词。Design premium, animated UI with feedback at every step: derive the style system from product positioning, amplify rough component ideas, adapt to every device, budget effects, and write image-generation prompts for UI previews on request."
+description: "设计有高级感、带动效、每一步操作都有反馈的界面：从产品定位推导整套风格（配色、字体、图标、圆角、间距、景深、动效、隐形滚动条），在用户的粗略概念上做出原创组件，按设备和输入方式适配桌面、平板、手机 H5、小程序和客户端，克制地搭配悬停、指针跟随、粒子文字等特效，按项目选择并搭建招牌交互动画（轨道球、擦除揭示、滚动运镜等）和 SVG 动画（描线、路径运动、流程图、可交互图解）；用户明确要求时给出生图模型用的界面预览提示词。适用于设计或改版界面、页面、组件、落地页、后台、移动端或小程序界面、设计系统和风格规范，或者用户提到高级感、动效、交互动画、SVG 动画、鼠标特效、粒子文字、配色、隐形滚动条、UI 生图提示词。Design premium, animated UI with feedback at every step: derive the style system from product positioning, amplify rough component ideas, adapt to every device, budget effects, build signature interactive scenes and SVG animation, and write image-generation prompts for UI previews on request."
 ---
 
 # atelier-ui
@@ -29,6 +29,8 @@ description: "设计有高级感、带动效、每一步操作都有反馈的界
 - **一个页面或一个产品**：走全部步骤。
 - **改已有项目**：先读它的 tokens、组件库和技术栈，往里面映射（stacks.md 第 9 节），不另起一套。
 - **只要规范或提示词**：交付文档，不写代码。
+- **一个招牌交互动画**（轨道球、揭面、粒子成形、滚动运镜……）或 **一段 SVG 动画**（Logo、流程、地图、图解）：先按 scenes.md 第 3 节确认它适合这个项目，再走第 6、7、8 步。
+- **用户给了参考网站 / 截图 / 录屏**：拆出它的玩法（scenes.md 第 2 节的 8 种之一）、节奏和成本档，用本技能的方法重新实现；不复制它的代码、素材和文案（sources.md 的蒸馏规则）。
 
 ## 流程
 
@@ -47,7 +49,7 @@ description: "设计有高级感、带动效、每一步操作都有反馈的界
 
 **5. 多端**（platforms.md）。分开判断输入能力和可用宽度；列出哪些组件在哪个宽度、哪种输入下换形态。
 
-**6. 特效**（effects.md）。按「装饰」旋钮和定位选 1 个招牌 + 最多 2 个环境特效，写出选择理由。
+**6. 特效与招牌场景**（effects.md、scenes.md、svg-motion.md）。按「装饰」旋钮和定位选 1 个招牌 + 最多 2 个环境特效，写出选择理由。要做整页的招牌交互（用户直接摆弄一个东西：轨道、揭开、扰动、抓取、拼贴、架子、场景切换、编排），先按 scenes.md 从产品隐喻里选玩法，再按它的工程骨架搭：静态海报先成立、场景状态是一个数字、文字永远是 DOM。图标、Logo、图表、流程、地图、示意图这类矢量动画按 svg-motion.md 选驱动方式（CSS → SMIL → JS）。先从 effects.md 第 8 节的模板和场景里挑（`examples/motion/` 逐个演示），没有合适的再自己做。
 
 **7. 实现**。用项目的技术栈。能用 kit 就复制 `assets/`（components.md；各框架接入见 stacks.md）。悬停样式包在 `@media (hover: hover)` 里；拖拽处理 `pointercancel`；动效用 `--e-move / --e-pop / --e-fade`。
 
@@ -86,11 +88,12 @@ description: "设计有高级感、带动效、每一步操作都有反馈的界
 
 | 路径 | 内容 |
 |---|---|
-| references/ | 方法：positioning、color、typography、icons-logos、shape-space-depth、motion、feedback、concepts、effects、components、recipes、platforms、image-prompts、review、sources、stacks |
-| assets/ | 可复制的 kit：tokens.css、base.css、core.js / core.css、palette.js、scrollbar.js / .css、components/、fx/ |
+| references/ | 方法：positioning、color、typography、icons-logos、shape-space-depth、motion、feedback、concepts、effects、scenes（招牌交互场景）、svg-motion（SVG 动画）、components、recipes、platforms、image-prompts、review、sources、stacks |
+| assets/ | 可复制的 kit：tokens.css、base.css、core.js / core.css、palette.js、scrollbar.js / .css、components/（11 个交互组件）、fx/（粒子、拖尾、指针、文字、拆字与流式、光影、点阵、滚动、跑马灯、FLIP、涟漪、彩纸、描绘、骨架屏、轨道球、擦除揭示、SVG 工具） |
 | scripts/palette.mjs | 旋钮 → 整套颜色 + 对比度报告（Node 18+） |
 | scripts/spring.mjs | 弹簧参数 → CSS `linear()` 曲线 + 时长 + JS 用的 k/c |
 | scripts/qa.py | 多宽度截图 + 设计审查报告（Python + Playwright） |
 | examples/showcase/ | 样板页：四种定位、11 个组件、实时读数、多端适配演示 |
+| examples/motion/ | 动效图鉴：18 个动效模板 + 5 个招牌场景（轨道球、擦除揭示、SVG 流程、SVG 路线、可交互图解），每个写明用在哪、别用在哪，附实时读数和按场景的选型表 |
 
 不能运行脚本时（没有 Node 或 Python），按 references 里的规则手工推导，并在交付里写明哪些检查没有自动验证。

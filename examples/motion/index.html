@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="night" data-mode="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atelier · 动效图鉴</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23426bce'/%3E%3Cpath d='M7 20c3-8 6-8 9 0s6 8 9 0' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="description" content="atelier-ui 的动效模板库：文字、光影、滚动、布局、反馈、手势六类，18 个可直接复制的模板和 5 个招牌场景，每个都写明用在哪、别用在哪。">
+<script>document.documentElement.classList.add('at-js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" id="webfonts" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Geist:wght@400;500;600;800&family=Geist+Mono:wght@400;500;600&family=Fredoka:wght@400;500;600;700&family=ZCOOL+KuaiLe&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Geist:wght@400;500;600;800&family=Geist+Mono:wght@400;500;600&family=Fredoka:wght@400;500;600;700&family=ZCOOL+KuaiLe&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/base.css">
+<link rel="stylesheet" href="../../assets/core.css">
+<link rel="stylesheet" href="../../assets/scrollbar.css">
+<link rel="stylesheet" href="../../assets/fx/text.css">
+<link rel="stylesheet" href="../../assets/fx/split.css">
+<link rel="stylesheet" href="../../assets/fx/light.css">
+<link rel="stylesheet" href="../../assets/fx/scroll.css">
+<link rel="stylesheet" href="../../assets/fx/marquee.css">
+<link rel="stylesheet" href="../../assets/fx/ripple.css">
+<link rel="stylesheet" href="../../assets/fx/draw.css">
+<link rel="stylesheet" href="../../assets/fx/skeleton.css">
+<link rel="stylesheet" href="../../assets/fx/orbit.css">
+<link rel="stylesheet" href="../../assets/fx/scratch.css">
+<link rel="stylesheet" href="../../assets/fx/svg.css">
+<link rel="stylesheet" href="../../assets/components/segmented.css">
+<link rel="stylesheet" href="../../assets/components/info-pill.css">
+<link rel="stylesheet" href="../../assets/components/flipcard.css">
+<link rel="stylesheet" href="../../assets/components/stack.css">
+<link rel="stylesheet" href="../showcase/css/page.css">
+<link rel="stylesheet" href="../showcase/css/cards.css">
+<link rel="stylesheet" href="../showcase/css/theme.css">
+<link rel="stylesheet" href="css/motion.css">
+<script src="../../assets/palette.js"></script>
+<script src="../showcase/js/themes.js"></script>
+</head>
+<body>
+<div class="sc-bg" aria-hidden="true"></div>
+<a class="sc-skip" href="#main">跳到正文</a>
+<header class="sc-top">
+  <div class="sc-wrap sc-top__in">
+    <a class="sc-brand" href="../showcase/" aria-label="回到 Atelier 样板间"><span class="sc-brand__mark" id="brandMark">夜</span><span class="sc-brand__word">MOTION</span></a>
+    <div class="at-seg sc-themes" id="themeSeg" aria-label="产品定位">
+      <span class="at-seg__glider"></span>
+      <button type="button" data-t="ink"><b>墨</b><span>Ink</span></button>
+      <button type="button" data-t="night"><b>夜</b><span>Night</span></button>
+      <button type="button" data-t="dango"><b>团</b><span>Dango</span></button>
+      <button type="button" data-t="porcelain"><b>瓷</b><span>Porcelain</span></button>
+    </div>
+    <button class="sc-mode" id="modeBtn" type="button" aria-label="切换深浅色"><svg viewBox="0 0 24 24" aria-hidden="true"><mask id="sc-moon"><rect width="24" height="24" fill="#fff"/><circle class="sc-mode__cut" cx="17" cy="7" r="5" fill="#000"/></mask><circle class="sc-mode__orb" cx="12" cy="12" r="5" fill="currentColor" mask="url(#sc-moon)"/><g class="sc-mode__rays" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></g></svg></button>
+  </div>
+  <div class="sc-ruler" aria-hidden="true"></div>
+</header>
+
+<main id="main">
+<section class="sc-hero sc-wrap" id="top" aria-labelledby="heroTitle">
+  <div class="sc-hero__bar">
+    <span class="at-label" data-scramble>ATELIER · MOTION ATLAS</span>
+    <span class="at-label" id="heroTheme">夜航 · 开发者平台</span>
+  </div>
+  <div class="mo-hero at-aurora" id="heroStage">
+    <h1 class="mo-hero__title" id="heroTitle" data-split="mask">让每一次动，<br>都说得出来由。</h1>
+    <p class="mo-hero__sub">招牌：拆字入场 · 环境：极光底。一页最多 1 个招牌 + 2 个环境特效，这一屏只用了两个。</p>
+  </div>
+  <div class="sc-hero__foot">
+    <div>
+      <p class="sc-lead">这里是 atelier-ui 的<b>动效模板库</b>：18 个零依赖、可直接复制的模板，按<b>文字、光影、滚动、布局、反馈、手势</b>分成六类；另有 5 个<b>招牌场景</b>：轨道球、擦除揭示和三个 SVG 场景。每张卡都写明<b>用在哪、别用在哪</b>，实时读出正在发生的数值，减少动态时退回安静的版本。</p>
+      <p class="mo-links"><a class="sc-ghost" href="#atlas">看模板</a><a class="sc-ghost" href="#scenes">招牌场景</a><a class="sc-ghost" href="#pick">按场景挑</a><a class="sc-ghost" href="../showcase/">组件样板间 →</a></p>
+    </div>
+    <dl class="sc-readout" id="heroReadout">
+      <div><dt>Templates</dt><dd>18</dd></div>
+      <div><dt>Families</dt><dd>6</dd></div>
+      <div><dt>Budget</dt><dd>1 + 2</dd></div>
+      <div><dt>Showing</dt><dd data-k="showing">18</dd></div>
+      <div><dt>Theme</dt><dd data-k="theme">—</dd></div>
+      <div><dt>Spring</dt><dd data-k="spring">—</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sc-sec sc-wrap" id="atlas" aria-labelledby="atlasTitle">
+  <header class="sc-head">
+    <span class="sc-head__num" aria-hidden="true">01</span>
+    <span class="at-label" data-scramble>SIX FAMILIES · EIGHTEEN TEMPLATES</span>
+    <h2 id="atlasTitle">十八个模板，各有各的用处</h2>
+    <p>切换顶部的定位，同一个模板会换成那套风格的字体、圆角和弹簧。筛选本身也是一个模板：卡片用 FLIP 重排，留下的滑到新位置，离开的原地淡出。</p>
+  </header>
+  <div class="mo-filterbar">
+    <div class="at-seg mo-filter" id="familySeg" aria-label="按家族筛选">
+      <span class="at-seg__glider"></span>
+      <button type="button" data-f="all" aria-checked="true">全部</button>
+      <button type="button" data-f="text">文字</button>
+      <button type="button" data-f="light">光影</button>
+      <button type="button" data-f="scroll">滚动</button>
+      <button type="button" data-f="layout">布局</button>
+      <button type="button" data-f="feedback">反馈</button>
+      <button type="button" data-f="gesture">手势</button>
+    </div>
+  </div>
+
+  <div class="sc-grid mo-grid" id="grid">
+
+    <!-- 01 split -->
+    <article class="sc-card" id="m-split" data-family="text" data-reveal data-steps="拆分|错开|落定"
+      data-prompt="拆字入场：标题按字（中文）或按词（英文）拆开，每个字错开 40ms 依次出现，总时长封顶 420ms，长标题也不会拖沓。四种入场可选：上浮淡入、由虚变实、从基线下方遮罩升起、弹出。只在第一次进入视口时播一次；读屏读到的是完整句子；减少动态时直接显示。">
+      <header class="sc-card__head"><span class="sc-card__no">01</span><div class="sc-card__title"><h3>拆字入场</h3><span class="at-label">SPLIT ENTRANCE · TEXT</span></div>
+        <button class="sc-card__act" type="button" data-replay aria-label="重播拆字入场"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></svg></button></header>
+      <div class="sc-card__stage mo-split">
+        <p class="mo-split__big" id="splitBig" data-split="rise">把每个字，排进节奏里。</p>
+        <p class="mo-split__small" id="splitSmall" data-split="rise">Motion with a reason, never by default.</p>
+        <div class="at-seg mo-mini" id="splitSeg" aria-label="入场方式">
+          <span class="at-seg__glider"></span>
+          <button type="button" data-v="rise" aria-checked="true">上浮</button><button type="button" data-v="blur">虚化</button><button type="button" data-v="mask">遮罩</button><button type="button" data-v="pop">弹出</button>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>首屏和章节标题，入场一次。<b>别用</b>正文段落；滚动回来又重播。</p>
+      <code class="mo-api">Atelier.split(el, { by: 'char' }) · data-split="rise"</code>
+      <dl class="sc-readout"><div><dt>Pieces</dt><dd data-k="pieces">—</dd></div><div><dt>Stagger</dt><dd data-k="stagger">40ms</dd></div><div><dt>Total</dt><dd data-k="total">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 02 stream -->
+    <article class="sc-card" id="m-stream" data-family="text" data-reveal data-steps="发送|首字|流式|完成"
+      data-prompt="流式输出：模型回复像真实的流一样到达——每次 1 到 4 个字、速度有快有慢、逗号句号后停顿一下，末尾一个光标，打字时常亮、等待时闪烁。生成中按钮变成「停止」，点了立刻停在当前位置。读屏不逐字播报，生成结束后整段可读；减少动态时整段直接出现。">
+      <header class="sc-card__head"><span class="sc-card__no">02</span><div class="sc-card__title"><h3>流式输出</h3><span class="at-label">STREAMING REPLY · TEXT</span></div></header>
+      <div class="sc-card__stage mo-chat">
+        <div class="mo-chat__q">怎么让按钮的反馈更有质感？</div>
+        <div class="mo-chat__a" id="streamOut"><span class="mo-chat__ph">点「生成」看回复如何流进来</span></div>
+        <button class="sc-ghost mo-chat__btn" type="button" id="streamBtn">生成</button>
+      </div>
+      <p class="mo-use"><b>用在</b>AI 回复、实时日志。<b>别用</b>静态文案假装在打字。</p>
+      <code class="mo-api">Atelier.stream(el, text, { cps: 60 }) → { done, stop }</code>
+      <dl class="sc-readout"><div><dt>Chars</dt><dd data-k="chars">0</dd></div><div><dt>Speed</dt><dd data-k="cps">—</dd></div><div><dt>State</dt><dd data-k="state">idle</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 03 marker -->
+    <article class="sc-card" id="m-mark" data-family="text" data-reveal data-steps="进入视口|落笔|划完"
+      data-prompt="荧光笔划线：一段话里的关键结论，在进入视口时被一支荧光笔从左到右划过，跨行时一行接一行地划，像真的在纸上画。颜色取主色的 30% 透明度，文字颜色不变；也可以换成一条细下划线。一段话最多划两三处，减少动态时直接显示划好的样子。">
+      <header class="sc-card__head"><span class="sc-card__no">03</span><div class="sc-card__title"><h3>荧光笔划线</h3><span class="at-label">MARKER · TEXT</span></div>
+        <button class="sc-card__act" type="button" data-replay aria-label="重播划线"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></svg></button></header>
+      <div class="sc-card__stage mo-mark">
+        <p id="markText">高级感不是加更多效果，而是<mark class="at-mark">删到删不动</mark>为止。每个动画都要说得出它属于<mark class="at-mark" style="--mark-delay:.55s">反馈、连续还是状态</mark>，说不出来的就<mark class="at-mark" data-mark="under" style="--mark-delay:1.1s">删掉</mark>。</p>
+      </div>
+      <p class="mo-use"><b>用在</b>一段话里一两处结论。<b>别用</b>整段都划，等于没划。</p>
+      <code class="mo-api">&lt;mark class="at-mark"&gt; · Atelier.reveal('.at-mark')</code>
+      <dl class="sc-readout"><div><dt>Marks</dt><dd data-k="marks">3</dd></div><div><dt>Lines</dt><dd data-k="lines">—</dd></div><div><dt>Pen</dt><dd data-k="pen">1.0s</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 04 scrub -->
+    <article class="sc-card" id="m-scrub" data-family="text" data-reveal data-steps="滚动|点亮|读完"
+      data-prompt="滚动点亮：一句主张先以 18% 的浓度铺在页面上，随着滚动，字从左到右逐个变实，像有人陪你读。点亮进度跟滚动位置绑定，往回滚会再变淡。只用在一句话的主张上，不要用在正文；减少动态时整句直接是实色。">
+      <header class="sc-card__head"><span class="sc-card__no">04</span><div class="sc-card__title"><h3>滚动点亮</h3><span class="at-label">SCROLL SCRUB · TEXT</span></div></header>
+      <div class="sc-card__stage mo-scrub">
+        <div class="at-scroll mo-scrub__box" id="scrubBox"><div class="at-scroll__view" tabindex="0" aria-label="滚动阅读示例">
+          <div class="mo-scrub__pad at-label">在框里向下滚动 ↓</div>
+          <p class="mo-scrub__text" id="scrubText">动效只做三件事：告诉用户我按到了，告诉他东西从哪来、到哪去，告诉他现在怎样了。</p>
+          <div class="mo-scrub__pad"></div>
+        </div></div>
+      </div>
+      <p class="mo-use"><b>用在</b>落地页的一句主张。<b>别用</b>正文、文档、需要快速扫读的内容。</p>
+      <code class="mo-api">Atelier.scrub(el, { by: 'char', root: scroller })</code>
+      <dl class="sc-readout"><div><dt>Progress</dt><dd data-k="progress">0%</dd></div><div><dt>Lit</dt><dd data-k="lit">—</dd></div><div><dt>Root</dt><dd data-k="root">box</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 05 beam -->
+    <article class="sc-card" id="m-beam" data-family="light" data-reveal data-steps="开始|处理中|完成"
+      data-prompt="边框光束：一段短光沿着卡片边框绕圈，表示「正在处理」。只在处理中出现，完成后光束淡出、卡片上出现对勾。光是主色，从透明渐变到主色再到一点白，像彗星的尾巴；一圈约 3 秒。不要把它常驻在静态卡片上当装饰；减少动态时换成静止的渐变描边。">
+      <header class="sc-card__head"><span class="sc-card__no">05</span><div class="sc-card__title"><h3>边框光束</h3><span class="at-label">BORDER BEAM · LIGHT</span></div></header>
+      <div class="sc-card__stage">
+        <div class="mo-key at-beam is-off" id="beamCard">
+          <span class="at-label">API KEY · 示例</span>
+          <code class="mo-key__val" id="beamKey">sk-···· ···· ···· ····</code>
+          <span class="mo-key__state" id="beamState" role="status">尚未生成</span>
+          <button class="sc-ghost" type="button" id="beamBtn">生成新密钥</button>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>生成中、同步中、推荐且在线。<b>别用</b>常驻在静态卡片上当装饰。</p>
+      <code class="mo-api">class="at-beam" · .is-off · .is-glow</code>
+      <dl class="sc-readout"><div><dt>State</dt><dd data-k="state">idle</dd></div><div><dt>Lap</dt><dd data-k="lap">3.2s</dd></div><div><dt>Elapsed</dt><dd data-k="elapsed">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 06 shine -->
+    <article class="sc-card" id="m-shine" data-family="light" data-reveal data-steps="靠近|扫过|归位" data-steps-touch="轻点|扫过|归位"
+      data-prompt="扫光：一道 105° 的斜光从左到右扫过一次，0.9 秒，ease-out。用在「新」标签、刚解锁的权益、主按钮的悬停。文字版是光从字里穿过：底色是正文色，中间一段是主色。只扫一次，不要常驻流光；减少动态时不扫。">
+      <header class="sc-card__head"><span class="sc-card__no">06</span><div class="sc-card__title"><h3>扫光</h3><span class="at-label">SHINE SWEEP · LIGHT</span></div>
+        <button class="sc-card__act" type="button" data-replay aria-label="再扫一次"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></svg></button></header>
+      <div class="sc-card__stage mo-shine">
+        <p class="mo-shine__title at-shine-text" id="shineText">Pro 权益已解锁</p>
+        <div class="mo-shine__row">
+          <span class="mo-badge at-shine" data-shine>新</span>
+          <button class="mo-cta at-shine" type="button" data-shine>升级到 Pro</button>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>新标签、刚解锁的权益，扫一次。<b>别用</b>每个按钮都挂着常驻流光。</p>
+      <code class="mo-api">class="at-shine" · .is-shine · .at-shine-text</code>
+      <dl class="sc-readout"><div><dt>Sweeps</dt><dd data-k="sweeps">0</dd></div><div><dt>Duration</dt><dd data-k="dur">0.9s</dd></div><div><dt>Trigger</dt><dd data-k="trigger">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 07 aurora -->
+    <article class="sc-card" id="m-aurora" data-family="light" data-reveal data-steps="静止也好看|缓慢漂移|离屏暂停"
+      data-prompt="极光底：两层超大的柔和色团（主色、点缀色、一个数据色）以 22 秒和 30 秒的周期反向缓慢漂移，只动 transform，不用模糊滤镜，所以很省。浅色主题下浓度更低，保证上面的文字对比度。滚出视口自动暂停；减少动态时停在一帧——它静止时也要好看。">
+      <header class="sc-card__head"><span class="sc-card__no">07</span><div class="sc-card__title"><h3>极光底</h3><span class="at-label">AURORA FIELD · LIGHT</span></div></header>
+      <div class="sc-card__stage mo-aurora at-aurora" id="auroraBox">
+        <p>静止时也好看，<br>才配动起来。</p>
+        <button class="sc-ghost mo-aurora__btn" type="button" id="auroraBtn" aria-pressed="false">暂停</button>
+      </div>
+      <p class="mo-use"><b>用在</b>首屏、登录页的一块底色。<b>别用</b>每个区块换一种背景；正文底下。</p>
+      <code class="mo-api">class="at-aurora" · Atelier.pauseOffscreen(el)</code>
+      <dl class="sc-readout"><div><dt>Layers</dt><dd>2</dd></div><div><dt>Moves</dt><dd>transform</dd></div><div><dt>Paused</dt><dd data-k="paused">no</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 08 dotfield -->
+    <article class="sc-card" id="m-dots" data-family="light" data-reveal data-steps="靠近|鼓起|点按|涟漪" data-steps-touch="轻点|涟漪|扩散"
+      data-prompt="点阵涟漪：一片均匀的点阵，指针靠近时附近的点被推开、变大、染上主色，像透镜下的网格；点按时从按下处扩散出一圈波纹，波经过的点被推开再回位。没有动静时停帧不耗电；触屏没有透镜，只有点按涟漪；减少动态时只画静止的点阵。">
+      <header class="sc-card__head"><span class="sc-card__no">08</span><div class="sc-card__title"><h3>点阵涟漪</h3><span class="at-label">DOT FIELD · LIGHT</span></div></header>
+      <div class="sc-card__stage mo-dots" id="dotsBox"><canvas id="dotsCanvas" aria-hidden="true"></canvas><span class="at-label" id="dotsHint">移动指针 · 点一下</span></div>
+      <p class="mo-use"><b>用在</b>开发者产品的首屏、空状态底图。<b>别用</b>表单、表格、长文底下。</p>
+      <code class="mo-api">Atelier.dotfield(canvas, { gap: 18, lens: 96 })</code>
+      <dl class="sc-readout"><div><dt>Dots</dt><dd data-k="dots">—</dd></div><div><dt>Ripples</dt><dd data-k="ripples">0</dd></div><div><dt>FPS</dt><dd data-k="fps">idle</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 09 parallax -->
+    <article class="sc-card" id="m-plx" data-family="scroll" data-reveal data-steps="滚动页面|前后错位|回到原位"
+      data-prompt="视差层：同一个画面分成远、中、近三层，滚动页面时远处那层慢慢往反方向走，近处那层多走一点，最大位移 40px，中间那层不动。卡片在视口中间时三层对齐。只用 1 到 2 个会动的层；减少动态时三层都不动。">
+      <header class="sc-card__head"><span class="sc-card__no">09</span><div class="sc-card__title"><h3>视差层</h3><span class="at-label">PARALLAX · SCROLL</span></div></header>
+      <div class="sc-card__stage mo-plx" id="plxBox">
+        <div class="mo-plx__far at-dots" data-depth="-0.7"></div>
+        <div class="mo-plx__mid" data-depth="0"><span class="at-label">USAGE · 示例</span><b class="at-num">128,400</b><i></i><i></i><i></i></div>
+        <span class="mo-plx__chip is-a" data-depth="1">+12% 本周</span>
+        <span class="mo-plx__chip is-b" data-depth="0.6">已同步</span>
+      </div>
+      <p class="mo-use"><b>用在</b>发布页的产品图、首屏插画，1–2 层。<b>别用</b>五层视差；后台工具。</p>
+      <code class="mo-api">Atelier.parallax(scope) · data-depth="-1…1"</code>
+      <dl class="sc-readout"><div><dt>Progress</dt><dd data-k="progress">—</dd></div><div><dt>Near</dt><dd data-k="near">—</dd></div><div><dt>Far</dt><dd data-k="far">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 10 marquee -->
+    <article class="sc-card" id="m-marquee" data-family="scroll" data-reveal data-steps="巡航|悬停减速|拖动甩出|恢复巡航" data-steps-touch="巡航|拖动|甩出|恢复巡航"
+      data-prompt="无缝跑马灯：一排标签匀速循环，两端渐隐。鼠标放上去不是急停，而是缓缓减速到两成速度；可以按住拖动、甩出去，甩出的速度在一秒内衰减回巡航速度。键盘焦点进入时停下。复制出来补位的项对读屏和 Tab 隐藏。减少动态时变成一排可以手动横向滚动的标签。">
+      <header class="sc-card__head"><span class="sc-card__no">10</span><div class="sc-card__title"><h3>无缝跑马灯</h3><span class="at-label">MARQUEE · SCROLL</span></div></header>
+      <div class="sc-card__stage mo-marquee">
+        <div class="at-marquee" id="mq1" role="region" aria-label="能力标签"><div class="at-marquee__track">
+          <span class="mo-tag">流式输出</span><span class="mo-tag">函数调用</span><span class="mo-tag">视觉理解</span><span class="mo-tag">长上下文</span><span class="mo-tag">结构化输出</span><span class="mo-tag">批量任务</span>
+        </div></div>
+        <div class="at-marquee" id="mq2" role="region" aria-label="接入方式"><div class="at-marquee__track">
+          <span class="mo-tag is-alt">REST</span><span class="mo-tag is-alt">SSE</span><span class="mo-tag is-alt">WebSocket</span><span class="mo-tag is-alt">Webhook</span><span class="mo-tag is-alt">SDK</span><span class="mo-tag is-alt">CLI</span>
+        </div></div>
+      </div>
+      <p class="mo-use"><b>用在</b>合作方墙、能力标签、轻量公告。<b>别用</b>必须读完的重要信息。</p>
+      <code class="mo-api">Atelier.marquee(el, { speed: 40, hover: 0.2 })</code>
+      <dl class="sc-readout"><div><dt>Speed</dt><dd data-k="speed">—</dd></div><div><dt>Mode</dt><dd data-k="mode">—</dd></div><div><dt>Copies</dt><dd data-k="copies">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 11 flip -->
+    <article class="sc-card" id="m-flip" data-family="layout" data-reveal data-steps="记录位置|改变布局|反推|滑到新位"
+      data-prompt="布局重排（FLIP）：筛选或排序时，留下的卡片从旧位置平滑滑到新位置，被筛掉的原地缩小淡出，新出现的稍晚一点淡入。时长和曲线跟随主题的弹簧。动画中途再筛选，所有卡片从当前屏幕上的位置继续，不会跳。减少动态时直接换成新布局。">
+      <header class="sc-card__head"><span class="sc-card__no">11</span><div class="sc-card__title"><h3>布局重排</h3><span class="at-label">FLIP LAYOUT · LAYOUT</span></div>
+        <button class="sc-card__act" type="button" id="flipSort" aria-label="打乱顺序"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3.5c3.5 0 4.5 10 8 10H20M4 17h3.5c1.4 0 2.4-1.6 3.2-3.4M20 7h-4.5c-1.4 0-2.4 1.6-3.2 3.4"/><path d="M17.5 4.5 20 7l-2.5 2.5M17.5 14.5 20 17l-2.5 2.5"/></svg></button></header>
+      <div class="sc-card__stage mo-flip">
+        <div class="at-seg mo-mini" id="flipSeg" aria-label="按类型筛选">
+          <span class="at-seg__glider"></span>
+          <button type="button" data-k="all" aria-checked="true">全部</button><button type="button" data-k="text">文本</button><button type="button" data-k="image">图像</button><button type="button" data-k="voice">语音</button>
+        </div>
+        <ul class="mo-flip__grid" id="flipGrid">
+          <li data-k="text">摘要</li><li data-k="image">配图</li><li data-k="voice">朗读</li>
+          <li data-k="text">翻译</li><li data-k="image">抠图</li><li data-k="voice">转写</li>
+          <li data-k="text">改写</li><li data-k="image">海报</li><li data-k="voice">配音</li>
+        </ul>
+      </div>
+      <p class="mo-use"><b>用在</b>筛选、排序、增删列表项。<b>别用</b>几百项的长表（只动可见区）。</p>
+      <code class="mo-api">Atelier.flip(list, () => { /* 排序 · hidden */ })</code>
+      <dl class="sc-readout"><div><dt>Moved</dt><dd data-k="moved">—</dd></div><div><dt>In / Out</dt><dd data-k="io">—</dd></div><div><dt>Duration</dt><dd data-k="dur">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 12 morph -->
+    <article class="sc-card" id="m-morph" data-family="layout" data-reveal data-steps="点按|展开|阅读|收回"
+      data-prompt="卡片展开（共享元素）：点一张小卡，详情面板从这张卡的位置和大小长出来，铺满整个区域，圆角也一起过渡；面板里的文字在框基本打开后再错开淡入。关闭时面板缩回原来那张卡里，比打开快一些。Esc、关闭按钮都能收回，焦点回到原来的卡上。减少动态时直接显示和隐藏。">
+      <header class="sc-card__head"><span class="sc-card__no">12</span><div class="sc-card__title"><h3>卡片展开</h3><span class="at-label">SHARED ELEMENT · LAYOUT</span></div></header>
+      <div class="sc-card__stage mo-morph" id="morphBox">
+        <div class="mo-morph__list" id="morphList"></div>
+        <div class="mo-morph__panel" id="morphPanel" role="dialog" aria-modal="false" aria-labelledby="morphTitle" hidden>
+          <button class="mo-morph__close" type="button" id="morphClose" aria-label="收回">×</button>
+          <b class="mo-morph__glyph" data-morph-fade id="morphGlyph"></b>
+          <h4 id="morphTitle" data-morph-fade></h4>
+          <p data-morph-fade id="morphBrief"></p>
+          <span class="at-label" data-morph-fade id="morphSpec"></span>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>列表项到详情、卡片到弹层。<b>别用</b>两个不相关的元素之间硬连。</p>
+      <code class="mo-api">Atelier.morph(card, panel) · { reverse: true }</code>
+      <dl class="sc-readout"><div><dt>From</dt><dd data-k="from">—</dd></div><div><dt>State</dt><dd data-k="state">list</dd></div><div><dt>Duration</dt><dd data-k="dur">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 13 skeleton -->
+    <article class="sc-card" id="m-skel" data-family="layout" data-reveal data-steps="请求|占位|到达|替换"
+      data-prompt="骨架屏：等待超过 300ms 才出现，形状和真实内容一致（头像圆、两行字）。一道微光同时扫过所有占位块，因为光是固定在视口上的，整个列表像一块正在加载的面，而不是一堆各自闪烁的条。数据到了，真实内容按行错开 40ms 升起替换。减少动态时只有静止的灰块。">
+      <header class="sc-card__head"><span class="sc-card__no">13</span><div class="sc-card__title"><h3>骨架屏</h3><span class="at-label">SKELETON · LAYOUT</span></div>
+        <button class="sc-card__act" type="button" id="skelReload" aria-label="重新加载"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></svg></button></header>
+      <div class="sc-card__stage mo-skel">
+        <ul class="mo-skel__list" id="skelList" aria-live="polite" aria-busy="false"></ul>
+      </div>
+      <p class="mo-use"><b>用在</b>等待超过 300ms 的列表和卡片。<b>别用</b>300ms 内就能到的数据。</p>
+      <code class="mo-api">&lt;span class="at-skel"&gt; · .at-skel-in</code>
+      <dl class="sc-readout"><div><dt>State</dt><dd data-k="state">—</dd></div><div><dt>Wait</dt><dd data-k="wait">—</dd></div><div><dt>Rows</dt><dd data-k="rows">3</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 14 ripple -->
+    <article class="sc-card" id="m-ripple" data-family="feedback" data-reveal data-steps="按下|扩散|松开|淡出"
+      data-prompt="按压涟漪：在按下的确切位置出现一个圆，颜色取元素自己的文字色、浓度 16%，向外扩散到最远的角；手指按住时圆停留，松开后淡出；很快的轻点也至少显示 140ms。键盘回车或空格从中心扩散。它是反馈不是装饰，不占特效预算；减少动态时只闪一下底色。">
+      <header class="sc-card__head"><span class="sc-card__no">14</span><div class="sc-card__title"><h3>按压涟漪</h3><span class="at-label">PRESS RIPPLE · FEEDBACK</span></div></header>
+      <div class="sc-card__stage mo-ripple">
+        <ul class="mo-menu" aria-label="示例菜单">
+          <li><button type="button" data-ripple>账户与密钥<small>3 个密钥</small></button></li>
+          <li><button type="button" data-ripple>用量与账单<small>本月</small></button></li>
+          <li><button type="button" data-ripple>通知<small>已开启</small></button></li>
+        </ul>
+        <div class="mo-ripple__row"><button class="mo-cta" type="button" data-ripple>确定</button><button class="sc-ghost" type="button" data-ripple>取消</button></div>
+      </div>
+      <p class="mo-use"><b>用在</b>列表行、图标按钮、触屏为主的界面。<b>别用</b>叠在已有按压动画的组件上。</p>
+      <code class="mo-api">Atelier.ripple(document) · data-ripple</code>
+      <dl class="sc-readout"><div><dt>Presses</dt><dd data-k="presses">0</dd></div><div><dt>Origin</dt><dd data-k="origin">—</dd></div><div><dt>Held</dt><dd data-k="held">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 15 confetti -->
+    <article class="sc-card" id="m-confetti" data-family="feedback" data-reveal data-steps="勾选|全部完成|喷发|飘落"
+      data-prompt="彩纸庆祝：完成最后一项时，彩纸从那个勾选框的位置向上喷出，纸片受重力和空气阻力，一边翻面（变窄再变宽）一边左右飘落，3 秒左右散尽，画布随即移除。颜色取主题的主色、点缀色和数据色。只给真正的里程碑；付款成功、每次保存都不要放。减少动态时不喷，只用文字告诉用户完成了。">
+      <header class="sc-card__head"><span class="sc-card__no">15</span><div class="sc-card__title"><h3>彩纸庆祝</h3><span class="at-label">CONFETTI · FEEDBACK</span></div></header>
+      <div class="sc-card__stage mo-todo">
+        <div class="mo-todo__box">
+          <span class="at-label">上手三步</span>
+          <label><input type="checkbox"><span>创建第一个密钥</span></label>
+          <label><input type="checkbox"><span>发出第一次请求</span></label>
+          <label><input type="checkbox"><span>设置用量提醒</span></label>
+          <p class="mo-todo__done" id="todoDone" role="status"></p>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>第一次完成、解锁、连续打卡。<b>别用</b>付款成功、每次保存。</p>
+      <code class="mo-api">Atelier.confetti({ x, y, count: 90 })</code>
+      <dl class="sc-readout"><div><dt>Done</dt><dd data-k="done">0 / 3</dd></div><div><dt>Pieces</dt><dd data-k="pieces">—</dd></div><div><dt>Bursts</dt><dd data-k="bursts">0</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 16 draw -->
+    <article class="sc-card" id="m-draw" data-family="feedback" data-reveal data-steps="描线|铺面|落点|长柱"
+      data-prompt="数据描绘：图表第一次出现时，折线从左到右画出来（1.2 秒，ease-in-out），线下的面积在画到一半时淡入，最后一个点在线到达时弹出；柱状图从底线依次长出，每根晚 30ms。只在数据第一次出现时画；数据刷新时柱子直接过渡到新高度，不从零重画。">
+      <header class="sc-card__head"><span class="sc-card__no">16</span><div class="sc-card__title"><h3>数据描绘</h3><span class="at-label">DRAW-IN CHART · FEEDBACK</span></div>
+        <button class="sc-card__act" type="button" data-replay aria-label="重画图表"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></svg></button></header>
+      <div class="sc-card__stage mo-draw">
+        <svg class="at-draw mo-draw__line" id="drawSvg" viewBox="0 0 300 120" preserveAspectRatio="none" role="img" aria-label="示例折线：8 天内从 12 升到 38"></svg>
+        <div class="at-bars mo-draw__bars" id="drawBars" aria-hidden="true"></div>
+        <span class="at-label mo-draw__tag">示例数据</span>
+      </div>
+      <p class="mo-use"><b>用在</b>数据第一次出现。<b>别用</b>每次刷新都从零重画。</p>
+      <code class="mo-api">&lt;path data-draw pathLength="1"&gt; · .at-draw · .at-bars</code>
+      <dl class="sc-readout"><div><dt>Points</dt><dd data-k="points">8</dd></div><div><dt>Bars</dt><dd data-k="bars">12</dd></div><div><dt>Line</dt><dd data-k="line">1.2s</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 17 flip card -->
+    <article class="sc-card" id="m-flipcard" data-family="gesture" data-reveal data-steps="按住|跟手|过三分之一|落定"
+      data-prompt="3D 翻面卡：卡片正面是密钥，背面是权限。点按钮、按 F、或者左右拖动都能翻：拖动时卡片跟着手指 1:1 转动，转到侧面时变暗、从桌面上抬起；松手时转过三分之一或甩得够快就翻过去，否则弹回。看不见的那一面不能被 Tab 选中。减少动态时两面直接淡入淡出切换。">
+      <header class="sc-card__head"><span class="sc-card__no">17</span><div class="sc-card__title"><h3>翻面卡</h3><span class="at-label">FLIP CARD · GESTURE</span></div></header>
+      <div class="sc-card__stage">
+        <div class="at-flipcard mo-fc" id="flipcard">
+          <div class="at-flipcard__inner">
+            <section class="at-flipcard__face is-front" aria-label="密钥正面">
+              <span class="at-label">SECRET KEY · 示例</span>
+              <code>sk-live-••••••••3f9a</code>
+              <span class="mo-fc__meta">创建于 11 月 2 日 · 最近使用 2 小时前</span>
+              <button class="sc-ghost" type="button" data-flip>翻面看权限</button>
+            </section>
+            <section class="at-flipcard__face is-back" aria-label="密钥背面">
+              <span class="at-label">SCOPES · 示例</span>
+              <ul><li>读取模型列表</li><li>发起对话请求</li><li>查看用量</li></ul>
+              <button class="sc-ghost" type="button" data-flip>翻回</button>
+            </section>
+          </div>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>两面信息：密钥与权限、会员卡、月付与年付。<b>别用</b>需要同时对比两面的内容。</p>
+      <code class="mo-api">Atelier.flipcard(el) → flip()</code>
+      <dl class="sc-readout"><div><dt>Angle</dt><dd data-k="angle">0°</dd></div><div><dt>Face</dt><dd data-k="face">front</dd></div><div><dt>Speed</dt><dd data-k="vel">0</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- 18 stack -->
+    <article class="sc-card" id="m-stack" data-family="gesture" data-reveal data-steps="拖动|越线|飞出|下一张" data-steps-touch="滑动|越线|飞出|下一张"
+      data-prompt="滑动卡堆：一次只决定一张。最上面的卡跟着手指走，并随横向位移倾斜；下面的卡随拖动的距离慢慢升上来。拖过宽度的三分之一（或者甩出去）卡就带着松手速度飞走，否则弹簧带着速度回位。拖动时左上或右上角逐渐显出「收下」「跳过」印章。支持撤销；方向键也能操作；每次决定都有读屏播报。">
+      <header class="sc-card__head"><span class="sc-card__no">18</span><div class="sc-card__title"><h3>滑动卡堆</h3><span class="at-label">SWIPE STACK · GESTURE</span></div></header>
+      <div class="sc-card__stage mo-stackwrap">
+        <div class="at-stack mo-stack" id="stack" tabindex="0" aria-label="动效守则卡片，左右方向键决定">
+          <article class="at-stack__card"><span class="at-label">RULE 1</span><h4>按下 100ms 内就要有反应</h4><p>先给手指回应，再去等网络。</p><span class="at-stack__stamp" data-dir="right">收下</span><span class="at-stack__stamp" data-dir="left">跳过</span></article>
+          <article class="at-stack__card"><span class="at-label">RULE 2</span><h4>悬停只做一件事</h4><p>抬起或者亮边，二选一。</p><span class="at-stack__stamp" data-dir="right">收下</span><span class="at-stack__stamp" data-dir="left">跳过</span></article>
+          <article class="at-stack__card"><span class="at-label">RULE 3</span><h4>退出比进入快</h4><p>离开用进入时长的六到七成。</p><span class="at-stack__stamp" data-dir="right">收下</span><span class="at-stack__stamp" data-dir="left">跳过</span></article>
+          <article class="at-stack__card"><span class="at-label">RULE 4</span><h4>动画可以被打断</h4><p>中途有新输入，从当前位置接着走。</p><span class="at-stack__stamp" data-dir="right">收下</span><span class="at-stack__stamp" data-dir="left">跳过</span></article>
+          <article class="at-stack__card"><span class="at-label">RULE 5</span><h4>减少动态不等于全关</h4><p>位移换成淡入，必要的反馈留着。</p><span class="at-stack__stamp" data-dir="right">收下</span><span class="at-stack__stamp" data-dir="left">跳过</span></article>
+        </div>
+        <div class="mo-stack__empty" id="stackEmpty"><p>五条都看完了。</p><button class="sc-ghost" type="button" id="stackReset">重来</button></div>
+        <div class="mo-stack__ctl">
+          <button class="sc-ghost" type="button" id="stackLeft">跳过</button>
+          <button class="sc-ghost" type="button" id="stackUndo">撤销</button>
+          <button class="sc-ghost" type="button" id="stackRight">收下</button>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>一次只处理一项：审核、推荐、入门引导。<b>别用</b>需要横向比较的选择。</p>
+      <code class="mo-api">Atelier.stack(el, { onSwipe(dir, card) })</code>
+      <dl class="sc-readout"><div><dt>Offset</dt><dd data-k="offset">0</dd></div><div><dt>Decision</dt><dd data-k="dir">—</dd></div><div><dt>Left</dt><dd data-k="left">5</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+  </div>
+</section>
+
+<section class="sc-sec sc-wrap" id="scenes" aria-labelledby="scenesTitle">
+  <header class="sc-head">
+    <span class="sc-head__num" aria-hidden="true">02</span>
+    <span class="at-label" data-scramble>SIGNATURE SCENES · SVG</span>
+    <h2 id="scenesTitle">一页一个招牌场景</h2>
+    <p>上面的模板是零件，这一节是<b>整场的玩法</b>：用户直接摆弄一个东西。再加三个 SVG 场景：流程、路线、可交互图解。场景层只负责好看，文字始终是真的 DOM；离屏就停，减少动态时停在完整的一帧。</p>
+  </header>
+  <div class="sc-grid mo-grid">
+
+    <!-- S1 orbit -->
+    <article class="sc-card is-wide" id="s-orbit" data-reveal data-steps="漂移|拖转|甩出|选中" data-steps-touch="漂移|横滑|甩出|选中"
+      data-prompt="轨道球：一组卡片按黄金角螺旋排成球面，每张卡都朝外，背面的卡变暗变淡而不是消失。平时缓慢自转；按住可以拖着转（1:1 跟手），松手带着速度继续转、约一秒内慢下来。点一张卡：球转到它朝前，镜头推进球内，这张卡放大到舞台中央，其他卡散开变暗；再点一次或按 Esc 收回。可以在球、环、螺旋三种排列之间切换，卡片平滑迁移。触屏上横滑转动、竖滑照常滚动页面。">
+      <header class="sc-card__head"><span class="sc-card__no">S1</span><div class="sc-card__title"><h3>轨道球</h3><span class="at-label">ORBIT · SCENE</span></div></header>
+      <div class="sc-card__stage mo-orbit">
+        <div class="at-orbit" id="orbit" tabindex="0" role="group" aria-label="作品轨道球，方向键转动，回车选中朝前的一张">
+          <div class="at-orbit__world" id="orbitWorld"></div>
+        </div>
+        <div class="mo-orbit__ui">
+          <div class="at-seg mo-mini" id="orbitShape" aria-label="排列方式">
+            <span class="at-seg__glider"></span>
+            <button type="button" data-v="sphere" aria-checked="true">球</button><button type="button" data-v="ring">环</button><button type="button" data-v="helix">螺旋</button>
+          </div>
+          <p class="mo-orbit__cap" id="orbitCap" aria-live="polite">拖动转一转，点一张看看。</p>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>作品集、摄影、发布会的「翻作品」首屏，一页一个。<b>别用</b>需要比较信息的列表；后台和信任页面。</p>
+      <code class="mo-api">Atelier.orbit(el, { shape: 'sphere', drift: 6, onPick(card, i) })</code>
+      <dl class="sc-readout"><div><dt>Phase</dt><dd data-k="phase">—</dd></div><div><dt>Spin</dt><dd data-k="spin">—</dd></div><div><dt>Picked</dt><dd data-k="picked">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- S2 scratch -->
+    <article class="sc-card" id="s-scratch" data-reveal data-steps="靠近|擦开|露出|长回" data-steps-touch="按住|擦开|露出|长回"
+      data-prompt="擦除揭示：上层是一块完整的封面（文字、图片或渐变），指针划过的地方被软边笔刷擦开，露出下面一层。快速划过会连成一条线而不是一串点。停手之后擦开的地方在约 1.6 秒里慢慢长回去。遮罩画在一张四分之一分辨率的小画布上，用 mask-image 交给 CSS，所以封面可以是任何内容。触屏上按住划动才擦，竖滑照常滚动；键盘按空格整块揭开。">
+      <header class="sc-card__head"><span class="sc-card__no">S2</span><div class="sc-card__title"><h3>擦除揭示</h3><span class="at-label">SCRATCH REVEAL · SCENE</span></div>
+        <button class="sc-card__act" type="button" id="scratchReset" aria-label="重新盖上"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></svg></button></header>
+      <div class="sc-card__stage mo-scratch">
+        <div class="at-scratch" id="scratch" aria-label="擦开封面，看下面的内容。空格键整块揭开">
+          <div class="at-scratch__under mo-scratch__under"><span class="at-label">UNDER · 示例</span><b>先给手指回应，<br>再去等网络。</b><small>按下 100ms 内出现反馈</small></div>
+          <div class="at-scratch__cover mo-scratch__cover" aria-hidden="true"><span>擦一擦</span></div>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>彩蛋、刮奖、前后对比、角色揭面。<b>别用</b>挡住用户必须读的内容。</p>
+      <code class="mo-api">Atelier.scratch(el, { brush: 46, heal: 1.6 })</code>
+      <dl class="sc-readout"><div><dt>Phase</dt><dd data-k="phase">—</dd></div><div><dt>Wiped</dt><dd data-k="wiped">0%</dd></div><div><dt>Brush</dt><dd data-k="brush">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- S3 svg flow -->
+    <article class="sc-card" id="s-flow" data-reveal data-steps="节点|连线|箭头|数据流"
+      data-prompt="SVG 流程图：四个节点按顺序出现，连线用 pathLength=1 + stroke-dashoffset 从 1 描到 0，箭头在连线到达时弹出，数据点沿连线流动（虚线 dashoffset 线性循环）。全部动画共用一个 8 秒周期：进入、停留、淡出、留白，循环无缝。离开视口时同时暂停 CSS 动画和 SMIL；减少动态时停在完整的一帧。">
+      <header class="sc-card__head"><span class="sc-card__no">S3</span><div class="sc-card__title"><h3>SVG 流程</h3><span class="at-label">SVG FLOW · SCENE</span></div>
+        <button class="sc-card__act" type="button" id="flowPause" aria-label="暂停流程动画" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg></button></header>
+      <div class="sc-card__stage mo-svgstage" id="flowBox">
+        <svg class="mo-svg" id="flowSvg" viewBox="0 0 320 200" role="img" aria-labelledby="flowTitle" data-svg-loop style="--loop: 8s">
+          <title id="flowTitle">请求流程：客户端发出请求，经网关鉴权，模型生成，结果流式返回</title>
+          <defs><marker id="flowArrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1l5 3-5 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></marker></defs>
+          <g class="mo-flow__links" fill="none" stroke-width="1.6" stroke-linecap="round">
+            <path class="at-svg-draw" pathLength="1" d="M78 52 H128" style="--at: .25s"/>
+            <path class="at-svg-draw" pathLength="1" d="M192 52 H242" style="--at: .85s"/>
+            <path class="at-svg-draw" pathLength="1" d="M274 70 V108 Q274 130 252 130 H192" style="--at: 1.45s"/>
+            <path class="at-svg-draw" pathLength="1" d="M128 148 H80 Q46 148 46 118 V74" style="--at: 2.05s"/>
+          </g>
+          <g class="mo-flow__flow" fill="none" stroke-width="1.6" stroke-linecap="round">
+            <path class="at-svg-flow" d="M78 52 H128"/><path class="at-svg-flow" d="M192 52 H242"/>
+            <path class="at-svg-flow" d="M274 70 V108 Q274 130 252 130 H192"/><path class="at-svg-flow" d="M128 148 H80 Q46 148 46 118 V74"/>
+          </g>
+          <g class="mo-flow__nodes">
+            <g class="at-svg-pop" style="--at: 0s"><rect x="14" y="34" width="64" height="36" rx="9"/><text x="46" y="57">客户端</text></g>
+            <g class="at-svg-pop" style="--at: .6s"><rect x="128" y="34" width="64" height="36" rx="9"/><text x="160" y="57">网关</text></g>
+            <g class="at-svg-pop" style="--at: 1.2s"><rect x="242" y="34" width="64" height="36" rx="9" class="is-key"/><text x="274" y="57">模型</text></g>
+            <g class="at-svg-pop" style="--at: 1.8s"><rect x="128" y="130" width="64" height="36" rx="9"/><text x="160" y="153">流式返回</text></g>
+          </g>
+          <circle class="mo-flow__pkt" r="3.2"><animateMotion dur="2.4s" repeatCount="indefinite" path="M46 52 H274 V130 H160 H46 V60" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/></circle>
+        </svg>
+      </div>
+      <p class="mo-use"><b>用在</b>架构图、接入步骤、工作流说明。<b>别用</b>同时点亮所有节点；几十个节点的大图。</p>
+      <code class="mo-api">data-svg-loop · .at-svg-draw / -pop / -flow · Atelier.svgPlay(box)</code>
+      <dl class="sc-readout"><div><dt>Cycle</dt><dd data-k="cycle">8s</dd></div><div><dt>State</dt><dd data-k="state">—</dd></div><div><dt>Engine</dt><dd data-k="engine">CSS + SMIL</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- S4 svg route -->
+    <article class="sc-card" id="s-route" data-reveal data-steps="描线|出发|沿线|到达"
+      data-prompt="SVG 路线：底图静止，一条航线用 drawPaths 依次描出，起点和终点脉冲；一个小飞行物用 pathMotion 沿路径走，并随路径方向转向（getPointAtLength 取当前点和前后各 1 单位的点算切线）。可以拖动进度条把它拖到任意位置，松手后从那里继续；到达终点时终点亮起。减少动态时直接画好整条线，飞行物停在终点。">
+      <header class="sc-card__head"><span class="sc-card__no">S4</span><div class="sc-card__title"><h3>SVG 路线</h3><span class="at-label">PATH MOTION · SCENE</span></div>
+        <button class="sc-card__act" type="button" id="routeReplay" aria-label="重新出发"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></svg></button></header>
+      <div class="sc-card__stage mo-svgstage">
+        <svg class="mo-svg" id="routeSvg" viewBox="0 0 320 200" role="img" aria-labelledby="routeTitle">
+          <title id="routeTitle">一条从左下城市飞往右上城市的航线</title>
+          <g class="mo-route__grid" aria-hidden="true"></g>
+          <path id="routePath" class="mo-route__line" data-draw data-draw-dur="1400" d="M42 158 C 96 70, 168 182, 214 104 S 268 40, 282 46" fill="none" stroke-width="2" stroke-linecap="round"/>
+          <g class="mo-route__city"><circle class="at-svg-pivot mo-route__ring" cx="42" cy="158" r="6"/><circle cx="42" cy="158" r="3.2"/><text x="42" y="180">出发</text></g>
+          <g class="mo-route__city is-end" id="routeEnd"><circle class="at-svg-pivot mo-route__ring" cx="282" cy="46" r="6"/><circle cx="282" cy="46" r="3.2"/><text x="282" y="30">到达</text></g>
+          <g id="routePlane" class="mo-route__plane"><path d="M7 0 L-5 -5 L-2 0 L-5 5 Z"/></g>
+        </svg>
+        <label class="mo-route__scrub"><span class="at-label">进度</span><input type="range" id="routeRange" min="0" max="1000" value="0" aria-label="飞行进度"></label>
+      </div>
+      <p class="mo-use"><b>用在</b>物流、出行、地图航线、步骤进度。<b>别用</b>底图也在动；路线多到看不清。</p>
+      <code class="mo-api">Atelier.drawPaths(svg) · Atelier.pathMotion(el, path, { rotate: true })</code>
+      <dl class="sc-readout"><div><dt>Progress</dt><dd data-k="progress">0%</dd></div><div><dt>Heading</dt><dd data-k="heading">—</dd></div><div><dt>State</dt><dd data-k="state">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+
+    <!-- S5 svg interactive -->
+    <article class="sc-card" id="s-wave" data-reveal data-steps="拖动|曲线跟随|读数|松手"
+      data-prompt="可交互 SVG 图解：一条正弦曲线 y = A·sin(fx + φ)。拖动曲线上的圆点（用 getScreenCTM().inverse() 把指针坐标换成 SVG 坐标）横向改变相位、纵向改变振幅，曲线每帧重算路径；两个滑块分别调频率和振幅，公式和读数实时更新。圆点有 44px 的透明点击区，键盘方向键也能调。适合理工科科普和参数讲解。">
+      <header class="sc-card__head"><span class="sc-card__no">S5</span><div class="sc-card__title"><h3>可交互图解</h3><span class="at-label">INTERACTIVE SVG · SCENE</span></div></header>
+      <div class="sc-card__stage mo-svgstage mo-wave">
+        <svg class="mo-svg" id="waveSvg" viewBox="0 0 320 180" aria-labelledby="waveTitle" role="group">
+          <title id="waveTitle">正弦曲线图解，拖动圆点改变振幅和相位</title>
+          <g class="mo-wave__axes" aria-hidden="true"><path d="M16 90 H304"/><path d="M28 18 V162"/></g>
+          <path id="wavePath" class="mo-wave__line" fill="none" stroke-width="2.2" stroke-linecap="round"/>
+          <g id="waveKnob" class="mo-wave__knob" tabindex="0" role="slider" aria-label="振幅与相位，左右调相位，上下调振幅" aria-valuetext="">
+            <circle r="26" fill="transparent"/><circle class="mo-wave__dot" r="7"/>
+          </g>
+        </svg>
+        <p class="mo-wave__eq" id="waveEq" aria-live="polite">y = 1.0 · sin(1.0x + 0.00)</p>
+        <div class="mo-wave__ctl">
+          <label><span class="at-label">频率</span><input type="range" id="waveF" min="5" max="30" value="10" aria-label="频率"></label>
+          <label><span class="at-label">振幅</span><input type="range" id="waveA" min="2" max="14" value="10" aria-label="振幅"></label>
+        </div>
+      </div>
+      <p class="mo-use"><b>用在</b>科普、教学、参数讲解、计算器。<b>别用</b>只是装饰的「假交互」。</p>
+      <code class="mo-api">Atelier.svgPoint(svg, e) · 指针 → viewBox 坐标</code>
+      <dl class="sc-readout"><div><dt>Amp</dt><dd data-k="amp">—</dd></div><div><dt>Freq</dt><dd data-k="freq">—</dd></div><div><dt>Phase</dt><dd data-k="phase">—</dd></div></dl>
+      <div class="sc-card__foot"></div>
+    </article>
+  </div>
+</section>
+
+<section class="sc-sec sc-wrap" id="pick" aria-labelledby="pickTitle">
+  <header class="sc-head">
+    <span class="sc-head__num" aria-hidden="true">03</span>
+    <span class="at-label" data-scramble>PICK BY SITUATION</span>
+    <h2 id="pickTitle">按场景挑，别按好看挑</h2>
+    <p>先说清这个动效属于哪一种：<b>反馈</b>不占预算但要安静；<b>招牌</b>一页一个；<b>环境</b>最多两个。付款、设置、错误页这类信任页面只留反馈。</p>
+  </header>
+  <div class="mo-table-wrap" tabindex="0" role="region" aria-label="动效选型表">
+    <table class="mo-table">
+      <thead><tr><th scope="col">场景</th><th scope="col">模板</th><th scope="col">类别</th><th scope="col">成本</th><th scope="col">减少动态时</th></tr></thead>
+      <tbody>
+        <tr><td>首屏标题第一次出现</td><td>01 拆字入场</td><td><span class="mo-pill is-sig">招牌</span></td><td>CSS</td><td>直接显示</td></tr>
+        <tr><td>AI 回复、实时日志</td><td>02 流式输出</td><td><span class="mo-pill is-fb">反馈</span></td><td>JS 计时</td><td>整段出现</td></tr>
+        <tr><td>一段话里的关键结论</td><td>03 荧光笔划线</td><td><span class="mo-pill is-amb">环境</span></td><td>CSS</td><td>直接划好</td></tr>
+        <tr><td>落地页的一句主张</td><td>04 滚动点亮</td><td><span class="mo-pill is-sig">招牌</span></td><td>JS 滚动</td><td>整句实色</td></tr>
+        <tr><td>生成中、同步中</td><td>05 边框光束</td><td><span class="mo-pill is-fb">反馈</span></td><td>CSS @property</td><td>静止渐变边</td></tr>
+        <tr><td>新功能、刚解锁</td><td>06 扫光</td><td><span class="mo-pill is-amb">环境</span></td><td>CSS</td><td>不扫</td></tr>
+        <tr><td>首屏、登录页底色</td><td>07 极光底</td><td><span class="mo-pill is-amb">环境</span></td><td>CSS transform</td><td>停在一帧</td></tr>
+        <tr><td>开发者产品首屏、空状态</td><td>08 点阵涟漪</td><td><span class="mo-pill is-sig">招牌</span></td><td>Canvas 2D</td><td>静止点阵</td></tr>
+        <tr><td>发布页的产品图</td><td>09 视差层</td><td><span class="mo-pill is-amb">环境</span></td><td>JS 滚动</td><td>不动</td></tr>
+        <tr><td>合作方墙、能力标签</td><td>10 无缝跑马灯</td><td><span class="mo-pill is-amb">环境</span></td><td>JS rAF</td><td>手动横滚</td></tr>
+        <tr><td>筛选、排序、增删</td><td>11 布局重排</td><td><span class="mo-pill is-fb">反馈</span></td><td>WAAPI</td><td>直接换</td></tr>
+        <tr><td>列表 → 详情</td><td>12 卡片展开</td><td><span class="mo-pill is-fb">反馈</span></td><td>WAAPI</td><td>直接显示</td></tr>
+        <tr><td>等待超过 300ms</td><td>13 骨架屏</td><td><span class="mo-pill is-fb">反馈</span></td><td>CSS</td><td>静止灰块</td></tr>
+        <tr><td>列表行、触屏按钮</td><td>14 按压涟漪</td><td><span class="mo-pill is-fb">反馈</span></td><td>WAAPI</td><td>闪一下底色</td></tr>
+        <tr><td>第一次完成、解锁</td><td>15 彩纸庆祝</td><td><span class="mo-pill is-sig">招牌</span></td><td>Canvas 2D</td><td>文字告知</td></tr>
+        <tr><td>图表第一次出现</td><td>16 数据描绘</td><td><span class="mo-pill is-fb">反馈</span></td><td>CSS · SVG</td><td>直接显示</td></tr>
+        <tr><td>一张卡的两面信息</td><td>17 翻面卡</td><td><span class="mo-pill is-fb">反馈</span></td><td>CSS 3D + 弹簧</td><td>淡入淡出</td></tr>
+        <tr><td>一次决定一项</td><td>18 滑动卡堆</td><td><span class="mo-pill is-fb">反馈</span></td><td>JS + 弹簧</td><td>淡出</td></tr>
+        <tr><td>作品集、发布会「翻作品」</td><td>S1 轨道球</td><td><span class="mo-pill is-sig">招牌</span></td><td>CSS 3D + JS</td><td>不漂移、不惯性</td></tr>
+        <tr><td>彩蛋、前后对比、揭面</td><td>S2 擦除揭示</td><td><span class="mo-pill is-sig">招牌</span></td><td>Canvas 遮罩</td><td>擦开不长回</td></tr>
+        <tr><td>架构图、接入步骤</td><td>S3 SVG 流程</td><td><span class="mo-pill is-amb">环境</span></td><td>CSS + SMIL</td><td>停在完整一帧</td></tr>
+        <tr><td>物流、出行、步骤进度</td><td>S4 SVG 路线</td><td><span class="mo-pill is-fb">反馈</span></td><td>SVG + JS</td><td>画好整条线</td></tr>
+        <tr><td>科普、参数讲解</td><td>S5 可交互图解</td><td><span class="mo-pill is-fb">反馈</span></td><td>SVG + JS</td><td>照常可调</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</main>
+
+<footer class="sc-foot sc-wrap">
+  <p class="sc-foot__big">动之前，<br>先问为什么动。</p>
+  <div class="sc-foot__meta">
+    <span class="at-label">ATELIER-UI · MOTION ATLAS</span>
+    <span class="at-label">数据均为示例 · 代码为原创，零依赖</span>
+  </div>
+</footer>
+
+<script src="../../assets/core.js"></script>
+<script src="../../assets/scrollbar.js"></script>
+<script src="../../assets/fx/text.js"></script>
+<script src="../../assets/fx/split.js"></script>
+<script src="../../assets/fx/light.js"></script>
+<script src="../../assets/fx/dotfield.js"></script>
+<script src="../../assets/fx/scroll.js"></script>
+<script src="../../assets/fx/marquee.js"></script>
+<script src="../../assets/fx/flip.js"></script>
+<script src="../../assets/fx/ripple.js"></script>
+<script src="../../assets/fx/confetti.js"></script>
+<script src="../../assets/fx/orbit.js"></script>
+<script src="../../assets/fx/scratch.js"></script>
+<script src="../../assets/fx/svg.js"></script>
+<script src="../../assets/components/segmented.js"></script>
+<script src="../../assets/components/info-pill.js"></script>
+<script src="../../assets/components/flipcard.js"></script>
+<script src="../../assets/components/stack.js"></script>
+<script src="../showcase/js/kit.js"></script>
+<script src="js/gallery.js"></script>
+</body>
+</html>

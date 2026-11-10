@@ -1,0 +1,32 @@
+/* SVG motion styles for svg.js and hand-written SVG scenes.
+   .at-draw-path   set by Atelier.drawPaths: a stroke that starts hidden and is drawn by its own animation
+   .is-paused      set by Atelier.svgPlay while off screen: freezes every CSS animation inside
+   .at-svg-pivot   rotate / scale an SVG element around its own box (without it, it pivots on the canvas corner)
+   [data-svg-loop] a ready-made loop timeline. Set --loop (8s) on the container; give children one of the classes
+                   below and stagger them with --at (a delay, e.g. 0.4s). Every child shares the same period, so the
+                   scene stays in step: each piece enters, holds, leaves, rests, in its turn. */
+.at-draw-path { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.is-paused *, .is-paused *::before, .is-paused *::after { animation-play-state: paused !important; }
+.at-svg-pivot { transform-box: fill-box; transform-origin: center; }
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-svg-loop] .at-svg-rise, [data-svg-loop] .at-svg-draw, [data-svg-loop] .at-svg-pop {
+    animation-duration: var(--loop, 8s); animation-delay: var(--at, 0s); animation-iteration-count: infinite; animation-fill-mode: both;
+  }
+  [data-svg-loop] .at-svg-rise { animation-name: at-svg-rise; animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
+  [data-svg-loop] .at-svg-draw { stroke-dasharray: 1 1; animation-name: at-svg-draw; animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+  [data-svg-loop] .at-svg-pop { transform-box: fill-box; transform-origin: center; animation-name: at-svg-pop; animation-timing-function: cubic-bezier(.34, 1.4, .64, 1); }
+  [data-svg-loop] .at-svg-flow { stroke-dasharray: var(--dash, 6 10); animation: at-svg-flow var(--flow, 1.2s) linear infinite; }
+  [data-svg-loop] .at-svg-pulse { transform-box: fill-box; transform-origin: center; animation: at-svg-pulse 1.8s cubic-bezier(.22, 1, .36, 1) infinite; animation-delay: var(--at, 0s); }
+}
+/* Reduced motion: no loop at all, the scene simply shows its finished state (every piece in, every line drawn). */
+@media (prefers-reduced-motion: reduce) {
+  [data-svg-loop] .at-svg-draw { stroke-dasharray: none; stroke-dashoffset: 0; }
+  [data-svg-loop] .at-svg-flow { opacity: 0; }
+}
+/* enter 0–14% · hold to 84% · leave by 92% · rest until the cycle ends */
+@keyframes at-svg-rise { 0% { opacity: 0; transform: translateY(10px); } 14%, 84% { opacity: 1; transform: none; } 92%, 100% { opacity: 0; transform: translateY(-6px); } }
+@keyframes at-svg-draw { 0% { stroke-dashoffset: 1; } 18%, 84% { stroke-dashoffset: 0; } 94%, 100% { stroke-dashoffset: -1; } }
+@keyframes at-svg-pop { 0% { transform: scale(0); opacity: 0; } 8%, 84% { transform: scale(1); opacity: 1; } 92%, 100% { transform: scale(0.6); opacity: 0; } }
+@keyframes at-svg-flow { to { stroke-dashoffset: -16; } }
+@keyframes at-svg-pulse { 0% { transform: scale(0.4); opacity: 0.9; } 100% { transform: scale(2.4); opacity: 0; } }

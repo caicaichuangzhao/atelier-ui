@@ -19,7 +19,8 @@
 
 - **主题**：只覆盖 token（`--c-* --r-* --s-* --e-* --d-*`），不改组件 CSS。配色用 `node scripts/palette.mjs` 生成后粘进 tokens.css，或运行时 `AtelierPalette.apply(el, opts)`。
 - **深色模式**：在 `<html>` 上设 `data-mode="dark"`。
-- **范例**：examples/showcase/index.html 把下面所有组件都用了一遍，并实时读出状态，是最好的接入参考。
+- **范例**：examples/showcase/index.html 演示交互组件；examples/motion/index.html（动效图鉴）演示 18 个动效模板和 5 个招牌场景，每个都有「用在 / 别用」和实时读数。两页都是最好的接入参考。
+- **动效模板怎么挑**：先看 effects.md 第 8 节的模板目录，按「反馈 / 招牌 / 环境」算预算，再复制对应文件。
 
 ## 2. 清单
 
@@ -41,6 +42,21 @@
 | fx/ribbon.js | 指针拖尾 | `A.ribbon(canvas, { color, colors, mode, width, life, target })` → `setStyle` `destroy` |
 | fx/pointer.js | 磁吸 / 聚光 / 倾斜 | `A.magnetic(el, { strength, radius })` · `A.spotlight(box, '.tile')` · `A.tilt(el, { max })`，都返回 destroy 函数 |
 | fx/text.js | 乱码解码 / 滚动数字 | `A.scramble(el, text, { duration })` → Promise · `A.odometer(el, value, { format })` |
+| fx/split.js + split.css | 拆字入场 / 流式输出 / 荧光笔 | `A.split(el, { by: 'char'\|'word'\|'line', stagger, cap, when })` → `play` `reset` `revert` · `A.stream(el, text, { cps, chunk, onToken })` → `{ done, stop }` · `.at-mark` |
+| fx/light.css + light.js | 边框光束 / 扫光 / 极光底 | `.at-beam` `.at-shine` `.at-shine-text` `.at-aurora`（纯 CSS）· `A.pauseOffscreen(els)` 离屏暂停 · `.at-still` 手动暂停 |
+| fx/dotfield.js | 点阵涟漪 | `A.dotfield(canvas, { gap, size, color, hot, lens, shape, target })` → `ripple(x, y)` `setStyle` `destroy` |
+| fx/scroll.js + scroll.css | 滚动进度 / 视差 / 滚动点亮 | `A.progress(el, onUpdate, { root })` 写 `--p` · `A.parallax(scope, { root, range })` · `A.scrub(el, { by, root, start, end })`（需要 split.js），都返回 destroy |
+| fx/marquee.js + marquee.css | 无缝跑马灯 | `A.marquee(el, { speed, reverse, hover, drag, onState })` → `pause` `play` `destroy` |
+| fx/flip.js | 布局重排 / 共享元素 | `A.flip(container, mutate, { items, scale, stagger })` → Promise · `A.morph(from, to, { reverse })` → Promise |
+| fx/ripple.js + ripple.css | 按压涟漪 | `A.ripple(scope, '[data-ripple]', { onPress, onRelease })` → destroy |
+| fx/confetti.js | 彩纸庆祝 | `A.confetti({ x, y, count, angle, spread, power, colors })` → Promise（`.count` 是发射的片数） |
+| fx/draw.css | 折线描绘 / 柱状生长 | `.at-draw` + `[data-draw]`（`pathLength="1"`）`[data-draw-fade]` `[data-draw-pop]` · `.at-bars > i[style="--v"]`，容器得到 `.is-in` 时播放 |
+| fx/skeleton.css | 骨架屏 | `.at-skel`（`.is-text` `.is-circle`）· 真实内容用 `.at-skel-in` 错开升起 |
+| components/flipcard.js | 3D 翻面卡 | `A.flipcard(el, { onState })` → `flip(toBack?)` `back` |
+| components/stack.js | 滑动卡堆 | `A.stack(el, { onSwipe(dir, card, left), onState })` → `swipe(dir)` `undo()` `reset()` `left` |
+| fx/orbit.js + orbit.css | 轨道球（球 / 环 / 螺旋） | `A.orbit(el, { shape, radius, drift, tilt, onPick, onRelease, onState })` → `pick(i)` `release()` `focus(i)` `setShape(name)` `spin(dx, dy)` |
+| fx/scratch.js + scratch.css | 擦除揭示 | `A.scratch(el, { brush, heal, soft, auto, onState })` → `clear()` `reset()` |
+| fx/svg.js + svg.css | SVG 动画工具 | `A.svgPlay(box)` 离屏暂停 CSS + SMIL · `A.drawPaths(svg, { stagger, duration, order })` → Promise · `A.pathMotion(el, path, { duration, rotate, loop })` → `play` `pause` `seek(p)` `reverse` · `A.svgPoint(svg, e)` · `data-svg-loop` + `.at-svg-draw` `.at-svg-pop` `.at-svg-flow` `.at-svg-pulse` |
 
 所有组件：处理了 `pointercancel`、键盘操作、读屏文字、减少动态，触屏点击区不小于 44px。对同一个元素重复调用同一个组件函数，拿到的是已有的实例，不会重复绑定事件（热更新、React StrictMode 都安全）。
 

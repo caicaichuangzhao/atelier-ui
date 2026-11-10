@@ -75,6 +75,55 @@
 - **倾斜**（`Atelier.tilt`）：最大 7°，`perspective(900px)`；反光层用 `mix-blend-mode: soft-light`。
 - **字重随指针变化**（Text Pressure 一类）：需要可变字体的字重或字宽轴，中文可变字体很少而且很大，基本只适用于拉丁字母。
 
-## 8. 去哪找现成的实现
+## 8. 模板目录（kit 里已经有的，先用这些）
 
-先看 kit 里有没有（components.md）。没有的，去 uiverse.io、ui.aceternity.com、reactbits.dev、motionsites.ai 找参考。**学技术，不照搬代码**；要用代码先看 sources.md 的授权表，并记录出处。
+样板页 `examples/motion/` 把下面 18 个模板和 5 个招牌场景逐个演示，每张卡写明用在哪、别用在哪，并实时读出数值。挑模板时先定它属于哪一类：**反馈**不占预算但要安静；**招牌**一页一个；**环境**最多两个。
+
+| 家族 | 模板 | 文件 | API / 用法 | 类别 | 用在 | 别用 |
+|---|---|---|---|---|---|---|
+| 文字 | 拆字入场 | fx/split.js + split.css | `A.split(el, { by })` + `data-split="rise\|blur\|mask\|pop"` | 招牌 | 首屏、章节标题，入场一次 | 正文；滚回来又重播 |
+| 文字 | 流式输出 | fx/split.js | `A.stream(el, text, { cps })` → `{ done, stop }` | 反馈 | AI 回复、实时日志 | 静态文案假装在打字 |
+| 文字 | 荧光笔划线 | fx/split.css | `<mark class="at-mark">` + `A.reveal('.at-mark')` | 环境 | 一段话里 1–2 处结论 | 整段都划 |
+| 文字 | 滚动点亮 | fx/scroll.js | `A.scrub(el, { by, root })` | 招牌 | 落地页的一句主张 | 正文、文档 |
+| 光影 | 边框光束 | fx/light.css | `.at-beam`（`.is-off` 停，`.is-glow` 加辉光） | 反馈 | 生成中、同步中 | 常驻在静态卡片上 |
+| 光影 | 扫光 | fx/light.css | `.at-shine` + `.is-shine`；文字版 `.at-shine-text` | 环境 | 新标签、刚解锁的权益 | 每个按钮常驻流光 |
+| 光影 | 极光底 | fx/light.css + light.js | `.at-aurora` + `A.pauseOffscreen(el)` | 环境 | 首屏、登录页底色 | 每个区块换一种背景 |
+| 光影 | 点阵涟漪 | fx/dotfield.js | `A.dotfield(canvas, { gap, lens })` → `ripple(x, y)` | 招牌 | 开发者产品首屏、空状态 | 表单、表格、长文底下 |
+| 滚动 | 视差层 | fx/scroll.js | `A.parallax(scope)` + `data-depth="-1…1"` | 环境 | 发布页的产品图，1–2 层 | 五层视差；后台 |
+| 滚动 | 无缝跑马灯 | fx/marquee.js + .css | `A.marquee(el, { speed, hover })` | 环境 | 合作方墙、能力标签 | 必须读完的信息 |
+| 布局 | 布局重排 FLIP | fx/flip.js | `A.flip(list, mutate, { scale })` | 反馈 | 筛选、排序、增删 | 几百项的长表 |
+| 布局 | 卡片展开 | fx/flip.js | `A.morph(card, panel, { reverse })` | 反馈 | 列表 → 详情 | 两个不相关的元素 |
+| 布局 | 骨架屏 | fx/skeleton.css | `.at-skel`（`.is-text` `.is-circle`）+ `.at-skel-in` | 反馈 | 等待超过 300ms | 300ms 内能到的数据 |
+| 反馈 | 按压涟漪 | fx/ripple.js + .css | `A.ripple(scope)` + `data-ripple` | 反馈 | 列表行、触屏按钮 | 叠在已有按压动画上 |
+| 反馈 | 彩纸庆祝 | fx/confetti.js | `A.confetti({ x, y, count })` | 招牌 | 第一次完成、解锁、打卡 | 付款成功、每次保存 |
+| 反馈 | 数据描绘 | fx/draw.css | `<path data-draw pathLength="1">` + `.at-draw`；`.at-bars` | 反馈 | 图表第一次出现 | 刷新时从零重画 |
+| 手势 | 翻面卡 | components/flipcard.js + .css | `A.flipcard(el)` → `flip()` | 反馈 | 密钥与权限、会员卡、月付年付 | 需要同时对比两面 |
+| 手势 | 滑动卡堆 | components/stack.js + .css | `A.stack(el, { onSwipe })` → `swipe` `undo` | 反馈 | 审核、推荐、入门引导 | 需要横向比较的选择 |
+| 场景 | 轨道球 | fx/orbit.js + .css | `A.orbit(el, { shape: 'sphere'\|'ring'\|'helix' })` → `pick` `release` `setShape` | 招牌 | 作品集、摄影、发布会「翻作品」 | 需要比较的列表；后台 |
+| 场景 | 擦除揭示 | fx/scratch.js + .css | `A.scratch(el, { brush, heal })` → `clear` `reset` | 招牌 | 彩蛋、刮奖、前后对比、角色揭面 | 挡住必须读的内容 |
+| SVG | 流程 / 路线 / 图解 | fx/svg.js + svg.css | `A.svgPlay` `A.drawPaths` `A.pathMotion` `A.svgPoint` · `data-svg-loop` | 环境 / 反馈 | 架构图、物流路线、科普参数 | 几十个节点的大图 |
+
+整页招牌玩法怎么选（轨道、揭开、扰动、抓取、拼贴、架子、场景切换、编排），看 scenes.md；SVG 动画的技法和分类起手式，看 svg-motion.md。
+
+### 模板的关键参数
+
+- **拆字**：每块错开 40ms，总延迟封顶 420ms（`cap`），所以长标题也不拖。中文按字，英文按词或按字母（字母包在不断行的词里）；`by: 'line'` 先量出行再整行遮罩升起，播完换回原文，窗口变宽也能正常换行。读屏读的是隐藏的整句。
+- **流式**：每次 1–4 个字，速度随机浮动 ±40%，逗号句号后停 140–260ms；首字前等 180–340ms（真实的首字延迟）。光标打字时常亮、等待时闪烁；`stop()` 停在当前位置。
+- **光束**：`@property` 让 conic-gradient 的角度可以动画，一圈 3.2s，光长 70°；用 mask 只露出边框那 1.5px。不支持 `@property` 的浏览器上光不转，但描边还在。
+- **极光**：两层超大的径向渐变，周期 22s 和 30s 反向漂移，**不用 blur 滤镜**，只动 transform。浅色主题把浓度 `--aurora-a` 降到 26% 左右，保住上面文字的对比度。
+- **点阵**：按 6 档颜色分批画（每帧只切 6 次 fillStyle），透镜半径 96px，涟漪波速 560px/s、波宽 46px、寿命 1.5s；没有动静就停帧。
+- **滚动**：所有实例共用一个滚动监听和一个 rAF，先统一读位置再统一写。视差位移封顶 ±40px；点亮默认在旅程的 20%–60% 之间完成。
+- **跑马灯**：悬停减速到 20%（缓动过去，不是急停）；可以拖、可以甩，甩出的速度约 1 秒衰减回巡航速度；键盘焦点进入时停；补位的复制品对读屏和 Tab 隐藏。
+- **FLIP**：先量旧位置 → 改布局 → 量新位置 → 从差值动回 0。被筛掉的项用 `hidden` 隐藏，它会在原地脱离文档流淡出；时长和曲线读主题的 `--d-move / --e-move`；动画中途再调用，从屏幕上的当前位置继续。卡片高度不一时传 `scale: false`，只平移，文字不被拉伸。
+- **共享元素**：面板从卡片的位置和大小长出来，圆角一起过渡，面板里 `[data-morph-fade]` 的内容在框打开约 35% 后错开淡入；收回用 75% 的时长。
+- **骨架屏**：渐变固定在视口上（`background-attachment: fixed`），一道光同时扫过所有占位块；只在等待超过 300ms 时才出现。
+- **涟漪**：圆从按下的确切位置扩散到最远的角，颜色取元素自己的文字色，16% 浓度；按住时停留，很快的轻点也至少显示 140ms。
+- **彩纸**：重力 + 空气阻力 + 左右摆动，纸片翻面时变窄再变宽；一个共用的 fixed 画布，最后一片落地就移除；低端设备减半。
+- **描绘**：折线 1.2s 画完，面积在一半时淡入，终点在线到达时弹出；柱子每根晚 30ms，延迟封顶 360ms。
+- **翻面 / 卡堆**：按住 1:1 跟手；松手时走过 1/3 或速度超过 0.5px/ms 就提交，否则带着松手速度用弹簧回位；看不见的一面或已经处理的卡设为 `inert`。
+- **轨道球**：卡片按黄金角螺旋均匀铺在球面（环 = 每圈最多 14 张的鼓形，螺旋 = 每圈约 8 张的细高螺旋），每张朝外，转到背面时盖上卡背、变暗，不消失。平时 6°/s 自转；拖动 1:1，松手的速度约 1 秒内衰减。选中：最短路径转到正面，镜头推进（半径 ×1.85），这张卡放大到舞台约 70%，其他变暗；Esc 或再点一次收回。卡片大小按「约 6000px² 舞台一张」自动算。只用 CSS 3D，每帧每张卡一次 transform。
+- **擦除揭示**：遮罩画在四分之一分辨率的小 canvas 上，经 `mask-image` 交给封面，封面可以是任何 HTML。快速划过会补点连成线；停手后用叠加（`lighter`）的方式让 alpha 长回 100%，普通混合在 8 位画布里会卡在 90% 左右留下一块半透明。触屏按住才擦，竖滑照常滚动。
+
+## 9. 去哪找现成的实现
+
+先看 kit 里有没有（第 8 节和 components.md）。没有的，去 uiverse.io、ui.aceternity.com、reactbits.dev、motionsites.ai 找参考。**学技术，不照搬代码**；要用代码先看 sources.md 的授权表，并记录出处。

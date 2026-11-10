@@ -1,6 +1,6 @@
 # 来源与授权
 
-核对日期 2026-11-09。授权会变，正式商用前打开原站再看一遍。
+核对日期 2026-11-09（动画研究部分 2026-11-10）。授权会变，正式商用前打开原站再看一遍。
 
 ## 1. 四个组件网站
 
@@ -26,6 +26,12 @@
 | 首屏背景、聚光卡片、3D 卡片、滚动叙事 | ui.aceternity.com |
 | 文字动画、WebGL 背景、弹性微交互（长按、滑动提交、果冻单选） | reactbits.dev（Text Animations、Backgrounds、Micro 分类） |
 | 整页的视觉方向、首屏结构、动效节奏描述 | motionsites.ai |
+| SVG 动画的分类和手法（加载、Logo、描线、流程、地图、数据、科普、小游戏） | svganimate.ai |
+
+### 2026-11-10 的动画研究（scenes.md、svg-motion.md 的依据）
+
+- **motionsites.ai**：用 REA（`capture_browser_scenario`）抓了公开首页和「Interactive」分类，下载并逐帧看了 19 个模板的**公开预览视频**（13 个 Interactive + 6 个其他）。只看公开预览，没有打开任何付费或免费提示词正文；scenes.md 里的分类（轨道、揭开、扰动……）和项目匹配是我们看完之后自己归纳的。
+- **svganimate.ai**：一个 AI 生成 SVG 动画和 HTML 视频的服务（商业产品）。用 REA 抓了中文首页和「交互式 SVG 动画」工具页的公开 DOM，统计了首页 15 个分类案例的内联 SVG 用了哪些元素和动画手法（描边、SMIL、滤镜……），并看了它的离屏暂停做法（IntersectionObserver + `pauseAnimations()`）。没有复制它的 SVG、代码或文案；svg-motion.md 的模板和 kit 里的 fx/svg.js 是原创实现。它的生成结果的授权以它自己的条款为准，本技能没有核实。
 
 ## 2. 西瓜同学
 
@@ -58,5 +64,6 @@
 
 - 中国大陆的访问情况没有实测（unpkg、jsDelivr、GitHub、Google Fonts）。npmmirror 是阿里运营的镜像，国内一般可用。
 - Aceternity Labs、React Bits Pro、Uiverse Design 的付费授权条款没有逐条读过。
-- motionsites 的付费提示词没有看过；它的 MCP 页写「500+」个提示词，公开接口返回 742 条。
+- motionsites 的付费提示词没有看过；它的 MCP 页写「500+」个提示词，公开接口返回 742 条。预览视频只能看到结果，看不到实现，scenes.md 第 2 节的「技术底座」一列是根据画面推断的，不是对方的源码。
+- svganimate.ai 的生成内容授权、导出文件能否商用，没有读条款。
 - 西瓜同学的主页链接没有逐个视频看过，只依据用户提供的截图和这条主张。

@@ -1,0 +1,35 @@
+/* Styles for orbit.js. The stage sets the perspective; each card is placed by JS (transform) and dims with --front. */
+.at-orbit {
+  --orbit-card: 120px; --orbit-ratio: 0.75;
+  position: relative; display: grid; place-items: center; overflow: hidden;
+  perspective: 1100px; perspective-origin: 50% 50%;
+  touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab;
+}
+.at-orbit.is-over { cursor: pointer; }
+.at-orbit.is-dragging { cursor: grabbing; }
+.at-orbit:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--c-accent); }
+.at-orbit__world { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.at-orbit__card {
+  --front: 1;
+  position: absolute; left: calc(var(--orbit-card) / -2); top: calc(var(--orbit-card) * var(--orbit-ratio) / -2);
+  width: var(--orbit-card); height: calc(var(--orbit-card) * var(--orbit-ratio));
+  padding: 0; border: 0; overflow: hidden; border-radius: max(4px, calc(var(--orbit-card) * 0.08));
+  background: var(--c-surface); box-shadow: 0 0 0 1px color-mix(in srgb, var(--c-text) 8%, transparent), 0 10px 24px -14px var(--c-shadow-c);
+  transform-origin: 50% 50%;
+  /* depth cue: cards on the far side fade and soften instead of popping out of view */
+  opacity: calc(0.18 + var(--front) * 0.82);
+  filter: brightness(calc(0.62 + var(--front) * 0.38)) saturate(calc(0.6 + var(--front) * 0.4));
+  pointer-events: none; will-change: transform; /* the stage hit-tests taps itself (orbit.js) */
+}
+.at-orbit__card > img, .at-orbit__card > svg { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+/* cards on the far side face away: their mirrored front is covered by a plain card back, so the sphere reads whole */
+.at-orbit__card::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--c-surface) 86%, var(--c-text)), color-mix(in srgb, var(--c-surface) 74%, var(--c-text)));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-text) 10%, transparent); opacity: var(--back, 0); }
+.at-orbit.has-pick .at-orbit__card:not(.is-picked) { opacity: calc((0.18 + var(--front) * 0.82) * 0.45); }
+.at-orbit__card.is-picked { opacity: 1; filter: none; box-shadow: 0 0 0 2px var(--c-accent), 0 30px 60px -24px var(--c-shadow-c); z-index: 1; }
+/* the card a click would pick (mouse), and the card Enter would pick (keyboard focus on the stage) */
+.at-orbit__card.is-hover:not(.is-picked), .at-orbit:focus-visible .at-orbit__card.is-front:not(.is-picked) {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c-accent) 80%, transparent), 0 12px 28px -14px var(--c-shadow-c); }
+.at-orbit__card:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .at-orbit__card { will-change: auto; } }

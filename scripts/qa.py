@@ -47,8 +47,11 @@ PROBE = r"""() => {
   const small = [], y0 = scrollY;
   for (const el of document.querySelectorAll(SEL)) {
     if (!shown(el) || (el.tagName === 'A' && cs(el).display === 'inline')) continue; // links inside running text are exempt
+    if (cs(el).pointerEvents === 'none') continue; // ignores the pointer: a tap reaches what is under it, so its size is not the target
     let r = el.getBoundingClientRect();
     if (r.width >= MIN - 0.5 && r.height >= MIN - 0.5) continue;
+    const lab = el.matches('input') && el.closest('label'); // a tap anywhere on the wrapping label toggles the input
+    if (lab) { const lr = lab.getBoundingClientRect(); if (lr.width >= MIN - 0.5 && lr.height >= MIN - 0.5) continue; }
     el.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' });
     r = el.getBoundingClientRect();
     if (r.bottom <= 0 || r.top >= innerHeight || r.right <= 0 || r.left >= W) continue; // parked off-canvas (skip links, drawers)

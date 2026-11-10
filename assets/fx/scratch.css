@@ -1,0 +1,12 @@
+/* Styles for scratch.js: two stacked layers; the cover's mask is written by JS. */
+.at-scratch { position: relative; display: grid; overflow: hidden; isolation: isolate; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: crosshair; }
+.at-scratch > .at-scratch__under, .at-scratch > .at-scratch__cover { grid-area: 1 / 1; min-width: 0; min-height: 0; }
+.at-scratch__cover {
+  z-index: 1; pointer-events: none;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+.at-scratch:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--c-accent); }
+/* Fallbacks: no mask support, or fully revealed by keyboard. */
+.at-scratch.no-mask .at-scratch__cover { transition: opacity var(--d-slow) var(--e-out); }
+@media (hover: hover) { .at-scratch.no-mask:hover .at-scratch__cover { opacity: 0; } }
+.at-scratch.is-revealed .at-scratch__cover { opacity: 0; transition: opacity var(--d-slow) var(--e-out); }
