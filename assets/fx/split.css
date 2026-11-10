@@ -1,0 +1,51 @@
+/* Text motion for split.js, plus the marker highlight (CSS only).
+   Entrances: data-split="rise" (default) | "blur" | "mask" | "pop". Each piece waits var(--at-delay). */
+.at-split__w { display: inline-block; white-space: nowrap; }
+.at-split__p { display: inline-block; vertical-align: top; }
+.at-split__p.is-line { display: block; }
+.at-split__in { display: inline-block; white-space: pre-wrap; }
+.at-split__p.is-line > .at-split__in { display: block; }
+
+.at-split .at-split__in {
+  transition: opacity 0.5s var(--e-out), transform 0.7s var(--e-out), filter 0.6s var(--e-out);
+  transition-delay: var(--at-delay, 0ms);
+}
+.at-split.is-reset .at-split__in { transition: none; }
+
+/* hidden only once JS has split the text, so a failed script never hides a heading */
+.at-split:not(.is-in) .at-split__in { opacity: 0; transform: translateY(0.55em); }
+.at-split[data-split="blur"]:not(.is-in) .at-split__in { transform: translateY(0.15em) scale(1.04); filter: blur(10px); }
+.at-split[data-split="pop"]:not(.is-in) .at-split__in { transform: scale(0.3); }
+.at-split[data-split="pop"] .at-split__in { transition-property: opacity, transform; transition-duration: 0.3s, var(--d-pop); transition-timing-function: var(--e-out), var(--e-pop); }
+
+/* mask: each piece rises from behind its own baseline. clip-path keeps the baseline where it was (overflow would not). */
+.at-split[data-split="mask"] .at-split__p { clip-path: inset(-0.4em -0.1em 0 -0.1em); }
+.at-split[data-split="mask"]:not(.is-in) .at-split__in { opacity: 1; transform: translateY(105%); }
+.at-split[data-split="mask"] .at-split__in { transition-duration: 0.3s, 0.8s, 0s; transition-timing-function: var(--e-out), cubic-bezier(0.7, 0, 0.2, 1), linear; }
+
+/* ---------- streaming text (Atelier.stream) ---------- */
+.at-stream { white-space: pre-wrap; overflow-wrap: anywhere; }
+.at-caret {
+  display: inline-block; width: 0.5em; height: 1.1em; margin-left: 2px; vertical-align: -0.18em;
+  border-radius: 2px; background: currentColor; opacity: 0.85;
+}
+.at-caret.is-idle { animation: at-caret 1s steps(1) infinite; } /* solid while typing, blinking once it waits */
+@keyframes at-caret { 50% { opacity: 0; } }
+
+/* ---------- marker highlight ----------
+   <mark class="at-mark">…</mark>; it draws in when it gets .is-in (Atelier.reveal('.at-mark') adds it).
+   The background is sliced across line fragments, so on wrapped text the stroke runs line by line like a real pen.
+   data-mark="under" draws a thin underline instead of a highlighter band. */
+.at-mark {
+  color: inherit; padding: 0 0.08em; border-radius: 0.12em;
+  background: linear-gradient(transparent 56%, var(--mark-c, color-mix(in srgb, var(--c-accent) 30%, transparent)) 56% 94%, transparent 94%) no-repeat 0 0 / 0% 100%;
+  transition: background-size var(--mark-d, 1s) cubic-bezier(0.65, 0, 0.35, 1) var(--mark-delay, 0s);
+}
+.at-mark[data-mark="under"] { background-image: linear-gradient(transparent calc(100% - 2px), var(--mark-c, var(--c-accent)) 0); }
+.at-mark.is-in { background-size: 100% 100%; }
+.at-mark.is-reset { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .at-split .at-split__in { transform: none !important; filter: none !important; }
+  .at-caret.is-idle { animation: none; }
+}

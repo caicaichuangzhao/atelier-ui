@@ -1,0 +1,82 @@
+/* Light effects, CSS only: border beam, shine sweep, shine text, aurora field.
+   All of them stop under reduced motion and leave a still version that still reads well.
+   Pause loops that scroll out of view with Atelier.pauseOffscreen (light.js); it sets data-paused. */
+
+/* ---------- border beam ----------
+   A short light runs around the border. It means "working on it": turn it on while something is in progress
+   (generating, syncing, recommended-and-live), not as permanent decoration.
+   <div class="at-beam">…</div>   knobs: --beam-c, --beam-w (1.5px), --beam-len (70deg), --beam-dur (3.2s) */
+@property --at-beam-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.at-beam { position: relative; isolation: isolate; }
+.at-beam::before, .at-beam.is-glow::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none;
+  padding: var(--beam-w, 1.5px);
+  background: conic-gradient(from var(--at-beam-a),
+    transparent 0deg calc(360deg - var(--beam-len, 70deg)),
+    color-mix(in srgb, var(--beam-c, var(--c-accent)) 0%, transparent) calc(360deg - var(--beam-len, 70deg)),
+    var(--beam-c, var(--c-accent)) 352deg, color-mix(in srgb, var(--beam-c, var(--c-accent)) 30%, #fff) 359deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: at-beam var(--beam-dur, 3.2s) linear infinite;
+}
+.at-beam.is-glow::after { z-index: -1; padding: 0; -webkit-mask: none; mask: none; filter: blur(14px); opacity: 0.55; }
+.at-beam.is-off::before, .at-beam.is-off::after { animation: none; opacity: 0; transition: opacity 0.3s var(--e-out); }
+@keyframes at-beam { to { --at-beam-a: 360deg; } }
+
+/* ---------- shine sweep ----------
+   One band of light crosses once: on hover (fine pointers) or when JS adds .is-shine (new badge, unlocked plan).
+   Works on filled surfaces (accent buttons, badges, cards with an image). On a plain light surface use --shine-c. */
+.at-shine { position: relative; overflow: hidden; isolation: isolate; }
+.at-shine::after {
+  content: ""; position: absolute; inset: -1px; z-index: 1; pointer-events: none; transform: translateX(-120%);
+  background: linear-gradient(105deg, transparent 32%, var(--shine-c, rgb(255 255 255 / 0.5)) 50%, transparent 68%);
+}
+.at-shine.is-shine::after { animation: at-shine var(--shine-d, 0.9s) var(--e-out) 1; }
+@media (hover: hover) and (pointer: fine) { .at-shine:hover::after { animation: at-shine var(--shine-d, 0.9s) var(--e-out) 1; } }
+@keyframes at-shine { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
+
+/* shine text: the light passes through the letters themselves. Short headings and labels only. */
+.at-shine-text {
+  --st-base: var(--c-text); --st-hi: var(--c-accent);
+  /* the image is 2.6× the box, so any position from 0% to 100% still covers every letter; 100% → 0% moves the light left to right */
+  background: linear-gradient(100deg, var(--st-base) 42%, var(--st-hi) 50%, var(--st-base) 58%) 100% 0 / 260% 100% no-repeat;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.at-shine-text.is-in { animation: at-shine-text 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.2s 1 both; }
+@keyframes at-shine-text { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+@media (forced-colors: active) { .at-shine-text { color: CanvasText; background: none; } }
+
+/* ---------- aurora field ----------
+   Two oversized layers of soft color drift against each other. No blur filter: the radial gradients are already
+   soft, so the loop only moves transforms. Content inside needs position: relative (z-index above the field).
+   <section class="at-aurora">…</section>   knobs: --aurora-1/2/3 colors, --aurora-a strength (0–100%), --aurora-dur */
+.at-aurora { position: relative; isolation: isolate; overflow: hidden; }
+.at-aurora::before, .at-aurora::after {
+  content: ""; position: absolute; z-index: -1; inset: -40%; pointer-events: none;
+  animation: at-aurora-a var(--aurora-dur, 22s) cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+.at-aurora::before {
+  background:
+    radial-gradient(28% 34% at 30% 38%, color-mix(in srgb, var(--aurora-1, var(--c-accent)) var(--aurora-a, 34%), transparent), transparent 70%),
+    radial-gradient(30% 26% at 70% 62%, color-mix(in srgb, var(--aurora-2, var(--c-spice)) var(--aurora-a, 34%), transparent), transparent 70%);
+}
+.at-aurora::after {
+  background:
+    radial-gradient(24% 30% at 62% 30%, color-mix(in srgb, var(--aurora-3, var(--c-data-3)) var(--aurora-a, 34%), transparent), transparent 70%),
+    radial-gradient(22% 22% at 36% 70%, color-mix(in srgb, var(--aurora-1, var(--c-accent)) calc(var(--aurora-a, 34%) * 0.7), transparent), transparent 70%);
+  animation-name: at-aurora-b; animation-duration: calc(var(--aurora-dur, 22s) * 1.37);
+}
+@keyframes at-aurora-a { from { transform: translate(-6%, -4%) rotate(0deg) scale(1); } to { transform: translate(5%, 4%) rotate(28deg) scale(1.12); } }
+@keyframes at-aurora-b { from { transform: translate(5%, 3%) rotate(0deg) scale(1.1); } to { transform: translate(-5%, -5%) rotate(-32deg) scale(0.96); } }
+
+/* paused: data-paused while off screen (pauseOffscreen); .at-still when the page or the user pauses it */
+[data-paused]::before, [data-paused]::after, [data-paused],
+.at-still::before, .at-still::after, .at-still { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .at-beam::before { animation: none; background: linear-gradient(135deg, var(--beam-c, var(--c-accent)), transparent 60%); }
+  .at-beam.is-glow::after { animation: none; opacity: 0; }
+  .at-shine::after, .at-shine:hover::after { animation: none !important; }
+  .at-shine-text.is-in { animation: none; }
+  .at-aurora::before, .at-aurora::after { animation: none; }
+}

@@ -1,0 +1,17 @@
+/* Swipe stack for stack.js. Cards share one grid cell; the component writes transforms, CSS only styles them. */
+.at-stack { position: relative; display: grid; touch-action: pan-y; user-select: none; -webkit-user-select: none; outline: none; }
+.at-stack:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 6px; border-radius: var(--r-card); }
+.at-stack__card {
+  grid-area: 1 / 1; position: relative; border-radius: var(--r-card); background: var(--c-surface);
+  box-shadow: var(--sh-2), var(--hl-inset); transform-origin: 50% 100%;
+  transition: transform var(--d-move) var(--e-move), opacity var(--d-fade) var(--e-fade);
+}
+.at-stack__card.is-top { cursor: grab; }
+.at-stack.is-dragging .at-stack__card, .at-stack__card.is-live { transition: none; }
+.at-stack.is-dragging .at-stack__card.is-top { cursor: grabbing; box-shadow: var(--sh-3), var(--hl-inset); }
+.at-stack__stamp {
+  position: absolute; top: 18px; padding: 4px 12px; border: 2px solid currentColor; border-radius: var(--r-sm);
+  font: var(--w-bold) var(--fs-sm)/1.4 var(--f-display); letter-spacing: 0.08em; opacity: 0; pointer-events: none;
+}
+.at-stack__stamp[data-dir="right"] { left: 18px; color: var(--c-ok); rotate: -10deg; }
+.at-stack__stamp[data-dir="left"] { right: 18px; color: var(--c-bad); rotate: 10deg; }

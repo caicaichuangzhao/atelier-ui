@@ -1,0 +1,7 @@
+/* Styles for scroll.js. --p (0–1) is on every Atelier.progress element; use it for anything scroll-scrubbed. */
+.at-scrub .at-split__p { opacity: 0.18; }
+.at-scrub.is-done .at-split__p { opacity: 1 !important; }
+
+/* scroll progress bar: <div class="at-progress" style="--p: 0"></div>, fed by Atelier.progress */
+.at-progress { height: 3px; border-radius: 2px; background: color-mix(in srgb, var(--c-text) 10%, transparent); overflow: hidden; }
+.at-progress::after { content: ""; display: block; height: 100%; background: var(--c-accent); transform-origin: left; transform: scaleX(var(--p, 0)); }

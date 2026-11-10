@@ -1,0 +1,21 @@
+/* Skeleton placeholders. One band of light sweeps across every block at once (the gradient is fixed to the viewport),
+   so a list reads as one loading surface instead of many blinking bars.
+   <span class="at-skel" style="width: 60%"></span>   shapes: .is-circle, .is-text (one line of text tall)
+   Show it only when loading takes longer than about 300 ms, and match the shape of the real content.
+   Swap in the content with .at-skel-in (rises in, 40ms apart via --i). Reduced motion: still blocks, no sweep. */
+.at-skel {
+  --skel-base: color-mix(in srgb, var(--c-text) 8%, transparent);
+  --skel-hi: color-mix(in srgb, var(--c-surface) 80%, transparent); /* a lighter band on light themes */
+  display: block; height: 12px; border-radius: var(--r-xs);
+  background: var(--skel-base) linear-gradient(100deg, transparent 20%, var(--skel-hi) 50%, transparent 80%) 0 0 / 45vw 100% no-repeat fixed;
+  animation: at-skel 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+[data-mode="dark"] .at-skel { --skel-base: color-mix(in srgb, var(--c-text) 9%, transparent); --skel-hi: color-mix(in srgb, var(--c-text) 7%, transparent); }
+.at-skel.is-text { height: 0.9em; margin-block: 0.35em; }
+.at-skel.is-circle { border-radius: 50%; aspect-ratio: 1; height: auto; }
+@keyframes at-skel { from { background-position: -45vw 0; } to { background-position: 100vw 0; } }
+
+.at-skel-in { animation: at-skel-in 0.5s var(--e-out) both; animation-delay: min(calc(var(--i, 0) * 40ms), 320ms); }
+@keyframes at-skel-in { from { opacity: 0; transform: translateY(6px); } }
+
+@media (prefers-reduced-motion: reduce) { .at-skel { animation: none; background-image: none; } .at-skel-in { animation: none; } }

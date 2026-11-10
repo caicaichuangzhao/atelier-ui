@@ -1,0 +1,20 @@
+/* Data draw-in, CSS only. The container gets .is-in when it enters the viewport (Atelier.reveal('.at-draw')).
+   Lines:  <svg class="at-draw"> <path data-draw pathLength="1" …/> <path data-draw-fade …/> <circle data-draw-pop …/> </svg>
+     the line draws from start to end, the area under it fades in behind, the last point pops when the line arrives.
+   Bars:   <div class="at-bars"> <i style="--v:.62; --i:0"></i> … </div>  each bar grows from the baseline, 30ms apart.
+   Draw once when the data first appears; when values change later, move the bars, do not redraw from zero. */
+.at-draw [data-draw] { stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0; transition: stroke-dashoffset var(--draw-d, 1.2s) cubic-bezier(0.65, 0, 0.35, 1) var(--draw-delay, 0s), opacity 0.01s linear var(--draw-delay, 0s); }
+.at-draw [data-draw-fade] { opacity: 0; transition: opacity 0.7s var(--e-out) calc(var(--draw-delay, 0s) + var(--draw-d, 1.2s) * 0.55); }
+.at-draw [data-draw-pop] { transform-box: fill-box; transform-origin: center; scale: 0; transition: scale var(--d-pop) var(--e-pop) calc(var(--draw-delay, 0s) + var(--draw-d, 1.2s) * 0.92); }
+.at-draw.is-in [data-draw] { stroke-dashoffset: 0; opacity: 1; }
+.at-draw.is-in [data-draw-fade] { opacity: 1; }
+.at-draw.is-in [data-draw-pop] { scale: 1; }
+
+.at-bars { display: flex; align-items: flex-end; gap: var(--bars-gap, 6px); }
+.at-bars > * {
+  flex: 1; height: calc(var(--v, 0.5) * 100%); border-radius: var(--r-xs) var(--r-xs) 2px 2px; background: var(--bar-c, var(--c-accent));
+  transform-origin: bottom; scale: 1 0;
+  transition: scale 0.7s var(--e-out) min(calc(var(--i, 0) * 30ms), 360ms), height var(--d-move) var(--e-move);
+}
+.at-bars.is-in > * { scale: 1 1; }
+.at-draw.is-reset *, .at-bars.is-reset > * { transition: none !important; }

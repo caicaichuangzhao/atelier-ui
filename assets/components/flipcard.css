@@ -1,0 +1,30 @@
+/* Flip card for flipcard.js. The card darkens a little as it turns edge-on and lifts off the surface mid-turn. */
+.at-flipcard {
+  position: relative; perspective: 1100px; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab;
+  /* the shadow sits on the outer box: a filter on the 3D box itself would flatten the two faces into one plane */
+  filter: drop-shadow(0 calc(var(--flip-lift, 0) * 18px) calc(8px + var(--flip-lift, 0) * 18px) color-mix(in srgb, var(--c-shadow-c) calc(10% + var(--flip-lift, 0) * 18%), transparent));
+}
+.at-flipcard.is-dragging { cursor: grabbing; }
+.at-flipcard__inner {
+  position: relative; display: grid; transform-style: preserve-3d; border-radius: var(--r-card);
+}
+.at-flipcard__face {
+  grid-area: 1 / 1; position: relative; overflow: hidden; border-radius: inherit;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+}
+.at-flipcard__face::after { /* edge-on shading */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: #000; opacity: var(--flip-shade, 0);
+}
+.at-flipcard__face.is-back { transform: rotateY(180deg); }
+.at-flipcard [data-flip] { cursor: pointer; }
+
+/* reduced motion: no turning, the faces swap with a short fade */
+@media (prefers-reduced-motion: reduce) {
+  .at-flipcard { filter: none; }
+  .at-flipcard__inner { transform: none !important; }
+  .at-flipcard__face { backface-visibility: visible; transition: opacity 0.2s linear !important; }
+  .at-flipcard__face.is-back { transform: none; opacity: 0; }
+  .at-flipcard.is-back .is-back { opacity: 1; }
+  .at-flipcard.is-back .is-front { opacity: 0; }
+}

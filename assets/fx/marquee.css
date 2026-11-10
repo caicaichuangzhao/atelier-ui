@@ -1,0 +1,12 @@
+/* Marquee for marquee.js. Edges fade so items arrive and leave instead of being cut. */
+.at-marquee {
+  position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--marquee-fade, 48px), #000 calc(100% - var(--marquee-fade, 48px)), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 var(--marquee-fade, 48px), #000 calc(100% - var(--marquee-fade, 48px)), transparent);
+}
+.at-marquee.is-dragging { cursor: grabbing; }
+.at-marquee__track { display: flex; width: max-content; gap: var(--marquee-gap, 12px); }
+.at-marquee__track > * { flex: none; }
+.at-marquee.is-dragging .at-marquee__track * { pointer-events: none; }
+/* reduced motion: a plain row you scroll by hand */
+.at-marquee.is-static { overflow-x: auto; cursor: auto; -webkit-mask-image: none; mask-image: none; scrollbar-width: thin; }

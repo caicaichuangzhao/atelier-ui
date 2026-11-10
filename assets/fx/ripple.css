@@ -1,0 +1,7 @@
+/* Press ripple for ripple.js. The host clips the circle; the circle takes the host's text color. */
+[data-ripple] { position: relative; overflow: hidden; isolation: isolate; -webkit-tap-highlight-color: transparent; }
+.at-ripple {
+  position: absolute; z-index: -1; border-radius: 50%; pointer-events: none;
+  background: currentColor; opacity: var(--ripple-a, 0.16); transform: scale(0.06);
+}
+@media (prefers-reduced-motion: reduce) { .at-ripple { transform: none; opacity: calc(var(--ripple-a, 0.16) * 0.6); } }
